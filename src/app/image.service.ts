@@ -22,6 +22,11 @@ interface PicsumImage {
   download_url: string;
 }
 
+export interface MemoryImage {
+  id: number;
+  url: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -67,15 +72,19 @@ export class ImageService {
     return array;
   }
 
-  getShuffledMemoryImages(imageSize: number = 200, imageAmount: number = 5): Observable<string[]> {
+  getShuffledMemoryImages(imageSize: number = 200, imageAmount: number = 5): Observable<MemoryImage[]> {
     return this.http
       .get<PicsumImage[]>(`${LIST_URL}?limit=${imageAmount}`)
       .pipe(
-        retry(3), // retry a failed request up to 3 times
+        retry(2), // retry a failed request up to 2 times
         map((images: PicsumImage[]) => {
           let imageUrls = images.map(image => `${BASE_URL}/id/${image.id}/${imageSize}`);
           imageUrls = imageUrls.concat(imageUrls);
-          return this.shuffle(imageUrls);
+          imageUrls = this.shuffle(imageUrls);
+          return imageUrls.map((imageUrl, index) => ({
+            id: index,
+            url: imageUrl,
+          }));
         }),
         catchError(this.handleError)
       );

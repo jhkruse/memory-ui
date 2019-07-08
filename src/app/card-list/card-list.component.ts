@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CARDS } from '../mock-cards';
+// import { CARDS } from '../mock-cards';
+import {
+  ImageService,
+  MemoryImage,
+} from '../image.service';
 
 @Component({
   selector: 'app-card-list',
@@ -7,11 +11,19 @@ import { CARDS } from '../mock-cards';
   styleUrls: ['./card-list.component.css']
 })
 export class CardListComponent implements OnInit {
-  cards = CARDS;
+  private cards: MemoryImage[];
 
-  constructor() { }
+  constructor(private imageService: ImageService) { }
 
   ngOnInit() {
+    this.imageService
+      .getShuffledMemoryImages()
+      .subscribe(
+        (data: MemoryImage[]) => {
+          this.cards = data;
+        },
+        err => console.log(err)
+      );
   }
 
 }
