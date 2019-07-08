@@ -72,7 +72,7 @@ export class ImageService {
     return array;
   }
 
-  getShuffledMemoryImages(imageSize: number = 200, imageAmount: number = 5): Observable<MemoryImage[]> {
+  getShuffledMemoryImages(imageSize: number = 200, imageAmount: number = 10): Observable<MemoryImage[]> {
     return this.http
       .get<PicsumImage[]>(`${LIST_URL}?limit=${imageAmount}`)
       .pipe(

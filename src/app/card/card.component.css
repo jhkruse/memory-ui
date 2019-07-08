@@ -1,8 +1,8 @@
 .card {
     width: 200px;
     height: 200px;
-    margin: .5rem;    
-    background-color: transparent;    
+    margin: .5rem;
+    background-color: transparent;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
@@ -12,14 +12,14 @@
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
-    transform-style: preserve-3d;    
+    transform-style: preserve-3d;
 }
-  
+
 /* Do an horizontal flip when you move the mouse over the flip box container */
 .card:hover .card-inner {
     transform: rotateY(180deg);
 }
-  
+
 /* Position the front and back side */
 .card-front, .card-back {
     position: absolute;
@@ -27,18 +27,20 @@
     height: 100%;
     backface-visibility: hidden;
 }
-  
+
 /* Style the front side (fallback if image is missing) */
 .card-front {
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     background-color: #bbb;
-    color: black;
+    color: rgba(0,0,0,0.5);
+    font-size: 175px;
+    font-weight: 500;
 }
 
 /* Style the back side */
 .card-back {
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
-    background-size: cover;    
+    background-size: cover;
     background-color: dodgerblue;
     color: white;
     transform: rotateY(180deg);

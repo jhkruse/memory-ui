@@ -20,7 +20,7 @@ export class CardListComponent implements OnInit {
       .getShuffledMemoryImages()
       .subscribe(
         (data: MemoryImage[]) => {
-          this.cards = data;
+          this.cards = [...data];
         },
         err => console.log(err)
       );
