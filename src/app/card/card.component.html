@@ -1,1 +1,8 @@
-<div style="background-image: url'{{card.image}}';" />
+<div class="card">
+    <div class="card-inner">
+        <div class="card-front">
+            XXXXXXX
+        </div>
+        <div class="card-back" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
+    </div>
+</div>
