@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 // import { CARDS } from '../mock-cards';
 import {
   ImageService,
   MemoryImage,
 } from '../image.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.css']
 })
-export class CardListComponent implements OnInit {
+export class CardListComponent implements OnInit, OnDestroy {
   private cards: MemoryImage[];
+
+  private imagesSubscription: Subscription;
 
   constructor(private imageService: ImageService) { }
 
   ngOnInit() {
-    this.imageService
+    this.imagesSubscription = this.imageService
       .getShuffledMemoryImages()
       .subscribe(
         (data: MemoryImage[]) => {
@@ -26,4 +33,9 @@ export class CardListComponent implements OnInit {
       );
   }
 
+  ngOnDestroy() {
+    if (this.imagesSubscription) {
+      this.imagesSubscription.unsubscribe();
+    }
+  }
 }
