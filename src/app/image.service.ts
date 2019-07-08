@@ -19,7 +19,7 @@ export class ImageService {
 
   constructor() { }
 
-  async createRandomImageUrls(imageSize: number = 200, imageAmount: number = 5) {
+  async createRandomImageUrls(imageSize: number = 200, imageAmount: number = 5): Promise<Array<string>> {
     const result = await fetch(`${LIST_URL}?limit=${imageAmount}`);
     const images: Array<PicsumImage> = await result.json();
     return images.map(image => `${BASE_URL}/id/${image.id}/${imageSize}`);
