@@ -3,12 +3,10 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-// import { CARDS } from '../mock-cards';
-import {
-  ImageService,
-  MemoryImage,
-} from '../image.service';
+import { ImageService } from '../services/image.service';
 import { Observable, Subscription } from 'rxjs';
+import { Card } from '../services/interfaces';
+import { MemoryGameLocalService } from '../services/memory-game-local.service';
 
 @Component({
   selector: 'app-card-list',
@@ -16,17 +14,17 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./card-list.component.css']
 })
 export class CardListComponent implements OnInit, OnDestroy {
-  private cards: MemoryImage[];
+  private cards: Card[];
 
-  private imagesSubscription: Subscription;
+  private cardsSubscription: Subscription;
 
-  constructor(private imageService: ImageService) { }
+  constructor(private memoryCardService: MemoryGameLocalService) { }
 
   ngOnInit() {
-    this.imagesSubscription = this.imageService
-      .getShuffledMemoryImages()
+    this.cardsSubscription = this.memoryCardService
+      .getCards()
       .subscribe(
-        (data: MemoryImage[]) => {
+        (data: Card[]) => {
           this.cards = [...data];
         },
         err => console.log(err)
@@ -34,8 +32,8 @@ export class CardListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.imagesSubscription) {
-      this.imagesSubscription.unsubscribe();
+    if (this.cardsSubscription) {
+      this.cardsSubscription.unsubscribe();
     }
   }
 }
