@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
+  Subject,
   Subscription,
   of,
 } from 'rxjs';
@@ -16,10 +17,11 @@ import { ImageService } from './image.service';
 })
 export class MemoryCardService implements Cards {
   private cards: Card[];
-
+  private cardsSubject: any;
   // private imagesSubscription: Subscription;
 
   constructor(private imageService: ImageService) {
+    this.cardsSubject = new Subject();
     this.cards = [];
   }
 
@@ -62,6 +64,7 @@ export class MemoryCardService implements Cards {
           let imageUrls = data.concat(data);
           imageUrls = this.shuffle<string>(imageUrls);
           this.cards = imageUrls.map((imageUrl) => new MemoryCard(imageUrl));
+          this.cardsSubject.next(this.cards);
           console.log('CARDS 3: ', this.cards); // TODO remove
         },
         err => console.log('ERROR getting cards: ', err)
@@ -86,6 +89,6 @@ export class MemoryCardService implements Cards {
 
   public getCards(): Observable<Card[]> {
     console.log('CARDS in getCards: ', JSON.stringify(this.cards)) // TODO remove
-    return of(this.cards);
+    return this.cardsSubject;
   }
 }
