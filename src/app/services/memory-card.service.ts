@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   Observable,
   Subject,
-  Subscription,
-  of,
 } from 'rxjs';
 import {
   Card,
@@ -17,21 +15,20 @@ import { ImageService } from './image.service';
 })
 export class MemoryCardService implements Cards {
   private cards: Card[];
-  private cardsSubject: any;
-  // private imagesSubscription: Subscription;
+  private cardsSubject: Subject<Card[]>;
 
   constructor(private imageService: ImageService) {
-    this.cardsSubject = new Subject();
     this.cards = [];
+    this.cardsSubject = new Subject<Card[]>();
   }
 
   /**
    * Randomly shuffle an array. See also: https://stackoverflow.com/a/2450976/1293256
-   * @param array<V> - The array to shuffle.
+   * @param array<T> - The array to shuffle.
    */
-  private shuffle<V>(array: V[]): V[] {
+  private shuffle<T>(array: T[]): T[] {
     let currentIndex = array.length;
-    let temporaryValue: V;
+    let temporaryValue: T;
     let randomIndex: number;
 
     // While there remain elements to shuffle...
@@ -50,13 +47,6 @@ export class MemoryCardService implements Cards {
   }
 
   public initCards(amount: number, imageSize: number): void {
-    // let imageUrls = await this.imageService.getRandomImages(amount, imageSize);
-    // // console.log('IMAGE_URLS: ', imageUrls); // TODO remove
-    // imageUrls = imageUrls.concat(imageUrls);
-    // imageUrls = this.shuffle<string>(imageUrls);
-    // this.cards = imageUrls.map((imageUrl) => new MemoryCard(imageUrl));
-    // console.log('CARDS in initCards: ', JSON.stringify(this.cards)) // TODO remove
-
     this.imageService.getRandomImages(amount, imageSize)
       .subscribe(
         (data: string[]) => {
@@ -73,10 +63,12 @@ export class MemoryCardService implements Cards {
 
   public shuffleCards(): void {
     this.cards = this.shuffle<Card>(this.cards);
+    this.cardsSubject.next(this.cards);
   }
 
   public hideCards(): void {
     this.cards.forEach((card) => card.hide());
+    this.cardsSubject.next(this.cards);
   }
 
   public removeCards(pairId: string): void {
@@ -85,10 +77,10 @@ export class MemoryCardService implements Cards {
         card.remove();
       }
     });
+    this.cardsSubject.next(this.cards);
   }
 
   public getCards(): Observable<Card[]> {
-    console.log('CARDS in getCards: ', JSON.stringify(this.cards)) // TODO remove
     return this.cardsSubject;
   }
 }

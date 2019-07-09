@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -26,6 +26,9 @@ export class StartViewComponent implements OnInit {
     Validators.required,
     Validators.minLength(5),
   ]);
+  cardAmountFormControl = new FormControl(8, [
+    Validators.required,
+  ]);
 
   matcher = new FormErrorStateMatcher();
 
@@ -41,7 +44,7 @@ export class StartViewComponent implements OnInit {
         data: {
           playerOne: this.playerOneFormControl.value,
           playerTwo: this.playerTwoFormControl.value,
-          cardAmount: 8,
+          cardAmount: this.cardAmountFormControl.value,
         }
       }
     });

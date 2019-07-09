@@ -3,8 +3,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { ImageService } from '../services/image.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Card } from '../services/interfaces';
 import { MemoryGameLocalService } from '../services/memory-game-local.service';
 
@@ -27,9 +26,7 @@ export class CardListComponent implements OnInit, OnDestroy {
       .getCards()
       .subscribe(
         (data: Card[]) => {
-          console.log('DATA 2: ', data); // TODO remove
           this.cards = data;
-          console.log('CARDS 3: ', this.cards); // TODO remove
         },
         err => console.log('ERROR getting cards: ', err)
       );

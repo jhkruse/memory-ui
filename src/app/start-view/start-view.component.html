@@ -1,12 +1,8 @@
+<h1>Welcome to Memory Game!</h1>
 <form #form="ngForm" class="example-form" (ngSubmit)="onSubmit()">
   <mat-form-field class="example-full-width">
-    <input
-      name='playerOne'
-      matInput
-      placeholder="Player 1"
-      [formControl]="playerOneFormControl"
-      [errorStateMatcher]="matcher"
-    >
+    <input name='playerOne' matInput placeholder="Player 1" [formControl]="playerOneFormControl"
+      [errorStateMatcher]="matcher">
     <mat-hint>Please enter your name!</mat-hint>
     <mat-error *ngIf="playerOneFormControl.hasError('minLength') && !playerOneFormControl.hasError('required')">
       Please enter a player name with min length of 5 characters.
@@ -17,13 +13,8 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input
-      name='playerTwo'
-      matInput
-      placeholder="Player 2"
-      [formControl]="playerTwoFormControl"
-      [errorStateMatcher]="matcher"
-    >
+    <input name='playerTwo' matInput placeholder="Player 2" [formControl]="playerTwoFormControl"
+      [errorStateMatcher]="matcher">
     <mat-hint>Please enter your name!</mat-hint>
     <mat-error *ngIf="playerTwoFormControl.hasError('minLength') && !playerTwoFormControl.hasError('required')">
       Please enter a player name with min length of 5 characters.
@@ -31,6 +22,25 @@
     <mat-error *ngIf="playerTwoFormControl.hasError('required')">
       Player name is <strong>required</strong>
     </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <select name='cardAmount' matNativeControl required [formControl]="cardAmountFormControl">
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8" selected>8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+    </select>
+    <mat-hint>Please select how many card pairs you want to play!</mat-hint>
   </mat-form-field>
 
   <button mat-raised-button [disabled]="!form.valid" color="primary">Start Game</button>

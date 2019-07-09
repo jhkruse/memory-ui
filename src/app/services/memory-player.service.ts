@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {
+  Observable,
+  Subject,
+} from 'rxjs';
 import {
   Player,
   Players,
@@ -10,9 +13,11 @@ import {
 })
 export class MemoryPlayerService implements Players {
   private players: Player[];
+  private playersSubject: Subject<Player[]>;
   private currentPlayerId: number;
 
   constructor() {
+    this.playersSubject = new Subject<Player[]>();
     this.resetPlayers();
     this.currentPlayerId = 0;
   }
@@ -20,6 +25,7 @@ export class MemoryPlayerService implements Players {
   public resetPlayers(): void {
     this.players = [];
     this.currentPlayerId = 0;
+    this.playersSubject.next(this.players);
   }
 
   public removePlayer(id: number): void {
@@ -33,6 +39,7 @@ export class MemoryPlayerService implements Players {
       score: 0,
       active: false,
     });
+    this.playersSubject.next(this.players);
     return this.players.length - 1;
   }
 
@@ -44,11 +51,13 @@ export class MemoryPlayerService implements Players {
       this.currentPlayerId++;
     }
     this.players[this.currentPlayerId].active = true;
+    this.playersSubject.next(this.players);
     return this.currentPlayerId;
   }
 
   public incrementScore(id: number): number {
     this.players[id].score++;
+    this.playersSubject.next(this.players);
     return this.players[id].score;
   }
 
@@ -57,6 +66,6 @@ export class MemoryPlayerService implements Players {
   }
 
   public getPlayers(): Observable<Player[]> {
-    return of(this.players);
+    return this.playersSubject;
   }
 }

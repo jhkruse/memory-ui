@@ -1,3 +1,11 @@
+h1 {
+  color: grey;
+  font-family: sans-serif;
+}
+button {
+  margin-top: 10px;
+}
+
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -6,4 +14,5 @@
 
 .example-full-width {
   width: 100%;
+  margin-bottom: 10px;
 }
