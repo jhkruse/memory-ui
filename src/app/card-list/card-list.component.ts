@@ -18,16 +18,20 @@ export class CardListComponent implements OnInit, OnDestroy {
 
   private cardsSubscription: Subscription;
 
-  constructor(private memoryCardService: MemoryGameLocalService) { }
+  constructor(private memoryCardService: MemoryGameLocalService) {
+    this.cards = [];
+  }
 
   ngOnInit() {
     this.cardsSubscription = this.memoryCardService
       .getCards()
       .subscribe(
         (data: Card[]) => {
-          this.cards = [...data];
+          console.log('DATA 2: ', data); // TODO remove
+          this.cards = data;
+          console.log('CARDS 3: ', this.cards); // TODO remove
         },
-        err => console.log(err)
+        err => console.log('ERROR getting cards: ', err)
       );
   }
 
