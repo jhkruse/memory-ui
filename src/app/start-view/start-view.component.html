@@ -1,0 +1,38 @@
+<form #form="ngForm" class="example-form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <input
+      name='playerOne'
+      matInput
+      placeholder="Player 1"
+      [formControl]="playerOneFormControl"
+      [errorStateMatcher]="matcher"
+    >
+    <mat-hint>Please enter your name!</mat-hint>
+    <mat-error *ngIf="playerOneFormControl.hasError('minLength') && !playerOneFormControl.hasError('required')">
+      Please enter a player name with min length of 5 characters.
+    </mat-error>
+    <mat-error *ngIf="playerOneFormControl.hasError('required')">
+      Player name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input
+      name='playerTwo'
+      matInput
+      placeholder="Player 2"
+      [formControl]="playerTwoFormControl"
+      [errorStateMatcher]="matcher"
+    >
+    <mat-hint>Please enter your name!</mat-hint>
+    <mat-error *ngIf="playerTwoFormControl.hasError('minLength') && !playerTwoFormControl.hasError('required')">
+      Please enter a player name with min length of 5 characters.
+    </mat-error>
+    <mat-error *ngIf="playerTwoFormControl.hasError('required')">
+      Player name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button [disabled]="!form.valid" color="primary">Start Game</button>
+
+</form>
