@@ -28,12 +28,17 @@ export interface Card {
   remove(): void;
 }
 
+export interface Board {
+  isLocked: boolean;
+  toggleIsLocked(): void;
+}
+
 export interface Players {
   resetPlayers(): void;
   removePlayer(id: number): void;
   addPlayer(name: string): number;
   nextPlayer(): number;
-  incrementScore(id: number): number;
+  incrementScore(playerId: number): number;
   getCurrentPlayerId(): number;
   getPlayers(): Observable<Player[]>;
 }

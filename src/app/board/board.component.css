@@ -2,6 +2,10 @@
   background-color: #ffffff;
 }
 
+.board.locked {
+  pointer-events: none;
+}
+
 /* .players {
   color: grey;
   font-family: sans-serif;

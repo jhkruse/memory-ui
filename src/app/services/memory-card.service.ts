@@ -54,12 +54,10 @@ export class MemoryCardService implements Cards {
     this.imageService.getRandomImages(amount, imageSize)
       .subscribe(
         (data: string[]) => {
-          console.log('URLS: ', data); // TODO remove
           let imageUrls = data.concat(data);
           imageUrls = this.shuffle<string>(imageUrls);
           this.cards = imageUrls.map((imageUrl) => new MemoryCard(imageUrl));
           this.cardsSubject.next(this.cards);
-          console.log('CARDS 3: ', this.cards); // TODO remove
         },
         err => console.log('ERROR getting cards: ', err)
       );
@@ -74,6 +72,7 @@ export class MemoryCardService implements Cards {
     this.cards.forEach((card) => {
       if (card.pairId === pairId) {
         card.remove();
+        card.uncover();
       }
     });
     this.cardsSubject.next(this.cards);

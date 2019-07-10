@@ -48,8 +48,8 @@ export class MemoryGameLocalService implements Game, Players, Cards {
     return this.memoryPlayerService.nextPlayer();
   }
 
-  public incrementScore(id: number): number {
-    return this.memoryPlayerService.incrementScore(id);
+  public incrementScore(playerId: number): number {
+    return this.memoryPlayerService.incrementScore(playerId);
   }
 
   public getCurrentPlayerId(): number {

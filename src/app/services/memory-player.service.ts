@@ -55,10 +55,10 @@ export class MemoryPlayerService implements Players {
     return this.currentPlayerId;
   }
 
-  public incrementScore(id: number): number {
-    this.players[id].score++;
+  public incrementScore(playerId: number): number {
+    this.players[playerId].score++;
     this.playersSubject.next(this.players);
-    return this.players[id].score;
+    return this.players[playerId].score;
   }
 
   public getCurrentPlayerId(): number {

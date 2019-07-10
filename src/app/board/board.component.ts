@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MemoryGameLocalService } from '../services/memory-game-local.service';
+import { MemoryBoardService } from '../services/memory-board.service';
+import { Board } from '../services/interfaces';
 
 @Component({
   selector: 'app-board',
@@ -8,13 +10,15 @@ import { MemoryGameLocalService } from '../services/memory-game-local.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
+  private board: Board;
+
   constructor(
     private memoryGameService: MemoryGameLocalService,
+    private memoryBoardService: MemoryBoardService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    console.log('INITIAL_DATA: ', history.state.data); // TODO remove
     if (history.state.data) {
       this.memoryGameService.initCards(history.state.data.cardAmount, 200);
       this.memoryGameService.addPlayer(history.state.data.playerOne);
@@ -23,6 +27,24 @@ export class BoardComponent implements OnInit {
       // Go back to initial (players) view.
       this.router.navigateByUrl('');
     }
-    console.log('AFTER INIT CARDS'); // TODO remove
+
+    this.memoryBoardService
+      .getBoard()
+      .subscribe(
+        (data: Board) => {
+          this.board = data;
+        },
+        err => console.log('ERROR getting board: ', err)
+      );
+  }
+
+  createCSSClass(): string {
+    let CSSclass = 'board';
+
+    if (this.board && this.board.isLocked) {
+      CSSclass += ` locked`;
+    }
+
+    return CSSclass;
   }
 }

@@ -14,7 +14,6 @@ import { MemoryGameLocalService } from '../services/memory-game-local.service';
 })
 export class CardListComponent implements OnInit, OnDestroy {
   private cards: Card[];
-
   private cardsSubscription: Subscription;
 
   constructor(private memoryCardService: MemoryGameLocalService) {
