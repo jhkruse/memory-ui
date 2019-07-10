@@ -4,6 +4,7 @@
   margin: .5rem;
   background-color: transparent;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  cursor: pointer;
 }
 
 .card-inner {
@@ -16,8 +17,12 @@
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-.card:hover .card-inner {
+.card.uncovered .card-inner {
   transform: rotateY(180deg);
+}
+
+.card.uncovered {
+  pointer-events: none;
 }
 
 /* Position the front and back side */

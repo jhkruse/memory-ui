@@ -1,4 +1,7 @@
-<div class="card">
+<div
+  [ngClass]="createCSSClass(card)"
+  (click)="handleOnClick(index, card)"
+>
   <div class="card-inner">
     <div class="card-front">?</div>
     <div class="card-back" [ngStyle]="{'background-image': 'url(' + card.url + ')'}"></div>

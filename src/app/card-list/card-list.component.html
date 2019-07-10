@@ -1,5 +1,5 @@
 <div class="cardlist">
-    <ng-container *ngFor="let card of cards">
-        <app-card [card]="card"></app-card>
+    <ng-container *ngFor="let card of cards; index as index">
+        <app-card [card]="card" [index]="index"></app-card>
     </ng-container>
 </div>

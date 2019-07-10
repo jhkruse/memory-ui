@@ -23,8 +23,8 @@ export interface Card {
   url: string;
   uncovered: boolean;
   removed: boolean;
+  cover(): void;
   uncover(): void;
-  hide(): void;
   remove(): void;
 }
 
@@ -41,8 +41,10 @@ export interface Players {
 export interface Cards {
   initCards(amount: number, imageSize: number): void;
   shuffleCards(): void;
-  hideCards(): void;
+  uncoverCard(index: number): number;
+  coverCards(): void;
   removeCards(pairId: string): void;
+  isPair(pairId: string): boolean;
   getCards(): Observable<Card[]>;
 }
 

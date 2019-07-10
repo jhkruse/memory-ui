@@ -46,6 +46,10 @@ export class MemoryCardService implements Cards {
     return array;
   }
 
+  private amountOfUncoveredCards(): number {
+    return this.cards.filter(card => card.uncovered).length;
+  }
+
   public initCards(amount: number, imageSize: number): void {
     this.imageService.getRandomImages(amount, imageSize)
       .subscribe(
@@ -66,17 +70,28 @@ export class MemoryCardService implements Cards {
     this.cardsSubject.next(this.cards);
   }
 
-  public hideCards(): void {
-    this.cards.forEach((card) => card.hide());
-    this.cardsSubject.next(this.cards);
-  }
-
   public removeCards(pairId: string): void {
     this.cards.forEach((card) => {
       if (card.pairId === pairId) {
         card.remove();
       }
     });
+    this.cardsSubject.next(this.cards);
+  }
+
+  public isPair(pairId: string): boolean {
+    const pairCards = this.cards.filter(card => card.pairId === pairId && card.uncovered).length;
+    return pairCards > 1;
+  }
+
+  public uncoverCard(index: number): number {
+    this.cards[index].uncover();
+    this.cardsSubject.next(this.cards);
+    return this.amountOfUncoveredCards();
+  }
+
+  public coverCards(): void {
+    this.cards.forEach((card) => card.cover());
     this.cardsSubject.next(this.cards);
   }
 

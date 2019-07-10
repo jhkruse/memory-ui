@@ -64,16 +64,24 @@ export class MemoryGameLocalService implements Game, Players, Cards {
     this.memoryCardService.initCards(amount, imageSize);
   }
 
+  public isPair(pairId: string): boolean {
+    return this.memoryCardService.isPair(pairId);
+  }
+
   public shuffleCards(): void {
     this.memoryCardService.shuffleCards();
   }
 
-  public hideCards(): void {
-    this.memoryCardService.hideCards();
-  }
-
   public removeCards(pairId: string): void {
     this.memoryCardService.removeCards(pairId);
+  }
+
+  public coverCards(): void {
+    this.memoryCardService.coverCards();
+  }
+
+  public uncoverCard(index: number): number {
+    return this.memoryCardService.uncoverCard(index);
   }
 
   public getCards(): Observable<Card[]> {

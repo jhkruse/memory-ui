@@ -17,7 +17,7 @@ export class MemoryCard implements Card {
     this.uncovered = true;
   }
 
-  public hide(): void {
+  public cover(): void {
     this.uncovered = false;
   }
 

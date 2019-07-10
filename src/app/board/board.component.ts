@@ -8,7 +8,10 @@ import { MemoryGameLocalService } from '../services/memory-game-local.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  constructor(private memoryGameService: MemoryGameLocalService, private router: Router) { }
+  constructor(
+    private memoryGameService: MemoryGameLocalService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     console.log('INITIAL_DATA: ', history.state.data); // TODO remove
