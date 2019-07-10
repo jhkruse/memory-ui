@@ -26,7 +26,7 @@ export class StartViewComponent implements OnInit {
     Validators.required,
     Validators.minLength(4),
   ]);
-  cardAmountFormControl = new FormControl(8, [
+  cardAmountFormControl = new FormControl(16, [
     Validators.required,
   ]);
 
@@ -44,7 +44,7 @@ export class StartViewComponent implements OnInit {
         data: {
           playerOne: this.playerOneFormControl.value,
           playerTwo: this.playerTwoFormControl.value,
-          cardAmount: this.cardAmountFormControl.value,
+          cardPairs: this.cardAmountFormControl.value / 2,
         }
       }
     });
