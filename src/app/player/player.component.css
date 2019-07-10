@@ -1,0 +1,21 @@
+.player {
+  color: grey;
+  padding: 8px 8px 8px 8px;
+  margin: 0 8px 8px 0;
+}
+
+.player-inactive {
+  color: lightgray;
+  background-color: rgb(245, 245, 245);
+  filter: grayscale(100%);
+  padding: 8px 8px 8px 8px;
+  margin: 0 8px 8px 0;
+}
+
+.player-score {
+  margin-bottom: 0px;
+}
+
+.player-image {
+  background-size: cover;
+}

@@ -1,0 +1,15 @@
+.playerlist {
+  color: grey;
+  font-family: sans-serif;
+  margin: 1rem 0 0 .5rem;
+  display: flex;
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.sticky {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+}

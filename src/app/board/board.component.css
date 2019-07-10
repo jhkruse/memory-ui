@@ -1,3 +1,35 @@
 .board {
   background-color: #ffffff;
 }
+
+/* .players {
+  color: grey;
+  font-family: sans-serif;
+  margin-bottom: 16px;
+  border-bottom: solid 1px;
+  border-color: rgba(121, 117, 117, 0.5);
+  display: flex;
+  flex: 1 1 auto;
+} */
+
+/* .score {
+  margin-bottom: 0px;
+}
+
+.player {
+  color: grey;
+  font-family: sans-serif;
+  padding: 8px 8px 8px 8px;
+  margin: 0 8px 8px 0;
+} */
+
+/* .player-image {
+  background-size: cover;
+} */
+
+.example-fill-remaining-space {
+  display: flex;
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}

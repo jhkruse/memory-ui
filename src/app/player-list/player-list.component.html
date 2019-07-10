@@ -1,0 +1,5 @@
+<div class="playerlist sticky">
+  <ng-container *ngFor="let player of players; let i = index">
+    <app-player [playerNo]="i + 1" [player]="player"></app-player>
+  </ng-container>
+</div>

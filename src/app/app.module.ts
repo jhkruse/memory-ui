@@ -14,6 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { Routes, RouterModule } from '@angular/router';
 import { BoardComponent } from './board/board.component';
+import { MatCardModule } from '@angular/material/card';
+import { PlayerListComponent } from './player-list/player-list.component';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,15 @@ import { BoardComponent } from './board/board.component';
     CardListComponent,
     CardComponent,
     StartViewComponent,
-    BoardComponent
+    BoardComponent,
+    PlayerListComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatCardModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
