@@ -38,19 +38,19 @@ export class CardComponent implements OnInit {
     this.memoryBoardService.toggleIsLocked();
     const amountOfUncoveredCards = this.memoryGameService.uncoverCard(index);
 
-    if ( amountOfUncoveredCards > 1) {
+    if (amountOfUncoveredCards > 1) {
       if (this.memoryGameService.isPair(card.pairId)) {
         setTimeout(() => {
           this.memoryGameService.removeCards(card.pairId);
           this.memoryGameService.incrementScore(this.memoryGameService.getCurrentPlayerId());
           this.memoryBoardService.toggleIsLocked();
-        } , 3000);
+        }, 3000);
       } else {
         setTimeout(() => {
           this.memoryGameService.coverCards();
           this.memoryGameService.nextPlayer();
           this.memoryBoardService.toggleIsLocked();
-        } , 3000);
+        }, 3000);
       }
     } else {
       this.memoryBoardService.toggleIsLocked();

@@ -20,11 +20,11 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
 export class StartViewComponent implements OnInit {
   playerOneFormControl = new FormControl('', [
     Validators.required,
-    Validators.minLength(5),
+    Validators.minLength(4),
   ]);
   playerTwoFormControl = new FormControl('', [
     Validators.required,
-    Validators.minLength(5),
+    Validators.minLength(4),
   ]);
   cardAmountFormControl = new FormControl(8, [
     Validators.required,
