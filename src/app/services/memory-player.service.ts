@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  Subject,
+  BehaviorSubject,
 } from 'rxjs';
 import {
   Player,
@@ -13,11 +13,11 @@ import {
 })
 export class MemoryPlayerService implements Players {
   private players: Player[];
-  private playersSubject: Subject<Player[]>;
+  private playersSubject: BehaviorSubject<Player[]>;
   private currentPlayerId: number;
 
   constructor() {
-    this.playersSubject = new Subject<Player[]>();
+    this.playersSubject = new BehaviorSubject<Player[]>([]);
     this.resetPlayers();
     this.currentPlayerId = 0;
   }
@@ -37,7 +37,7 @@ export class MemoryPlayerService implements Players {
     this.players.push({
       name,
       score: 0,
-      active: false,
+      active: this.players.length ? false : true,
     });
     this.playersSubject.next(this.players);
     return this.players.length - 1;
