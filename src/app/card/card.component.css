@@ -28,7 +28,7 @@
 .card.removed {
   transition: 0.5s;
   opacity: 0;
-  transform: scale(3) rotate(10deg);
+  transform: rotate(180deg);
 }
 
 /* Position the front and back side */
@@ -43,8 +43,8 @@
 
 /* Style the front side (fallback if image is missing) */
 .card-front {
-  border: 1px solid;
-  border-color: rgba(49, 155, 247, 0.6);
+  /* border: 1px solid;
+  border-color: rgba(49, 155, 247, 0.6); */
   background: linear-gradient(321deg, rgba(93,173,217,1) 0%, rgba(155,187,232,1) 28%, rgba(239,244,251,1) 73%, rgba(255,255,255,1) 100%);
   color: rgba(49, 155, 247, 0.6);
   font-size: 175px;
