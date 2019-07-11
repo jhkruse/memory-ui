@@ -23,5 +23,6 @@ export class MemoryCard implements Card {
 
   public remove(): void {
     this.removed = true;
+    this.uncovered = false;
   }
 }

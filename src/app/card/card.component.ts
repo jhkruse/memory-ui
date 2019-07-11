@@ -41,7 +41,6 @@ export class CardComponent implements OnInit {
     if (amountOfUncoveredCards > 1) {
       if (this.memoryGameService.isPair(card.pairId)) {
         setTimeout(() => {
-          this.memoryGameService.coverCards();
           this.memoryGameService.removeCards(card.pairId);
           this.memoryGameService.incrementScore(this.memoryGameService.getCurrentPlayerId());
           this.memoryBoardService.toggleIsLocked();
