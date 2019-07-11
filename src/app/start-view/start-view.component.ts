@@ -12,9 +12,9 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
 }
 
 /**
- * Maximum amount of pairs: 12 pairs => 4 to 28 cards.
+ * Maximum amount of pairs: 14 pairs => 4 to 28 cards.
  */
-const MAX_AMOUNT_PAIRS = 12;
+const MAX_AMOUNT_PAIRS = 14;
 
 @Component({
   selector: 'app-start-view',
