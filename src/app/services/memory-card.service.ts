@@ -72,7 +72,6 @@ export class MemoryCardService implements Cards {
     this.cards.forEach((card) => {
       if (card.pairId === pairId) {
         card.remove();
-        card.uncover();
       }
     });
     this.cardsSubject.next(this.cards);
