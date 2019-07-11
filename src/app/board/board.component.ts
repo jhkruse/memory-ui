@@ -20,7 +20,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     if (history.state.data) {
-      this.memoryGameService.initCards(history.state.data.cardAmount, 200);
+      this.memoryGameService.initCards(history.state.data.cardPairs, 200);
       this.memoryGameService.addPlayer(history.state.data.playerOne);
       this.memoryGameService.addPlayer(history.state.data.playerTwo);
     } else {
