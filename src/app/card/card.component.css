@@ -28,7 +28,7 @@
 .card.removed {
   transition: 0.5s;
   opacity: 0;
-  transform: rotate(180deg);
+  transform: scale(3) rotate(10deg);
 }
 
 /* Position the front and back side */
