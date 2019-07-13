@@ -41,6 +41,7 @@ export interface Players {
   incrementScore(playerId: number): number;
   getCurrentPlayerId(): number;
   getPlayers(): Observable<Player[]>;
+  getWinner(): Player[];
 }
 
 export interface Cards {
@@ -51,10 +52,14 @@ export interface Cards {
   removeCards(pairId: string): void;
   isPair(pairId: string): boolean;
   getCards(): Observable<Card[]>;
+  getCardsSnapshot(): Array<Card>;
 }
 
 export interface Game extends Players, Cards {
   init(): void;
+  updateGame(card: Card, index: number): void;
+  isGameOver(): void;
+  getGameOver(): Observable<boolean | Player[]>;
   reset(): void;
   quit(): void;
 }

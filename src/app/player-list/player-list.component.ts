@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Player } from '../services/interfaces';
 import { MemoryGameLocalService } from '../services/memory-game-local.service';
@@ -22,14 +18,12 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.playersSubscription = this.memoryPlayerService
-      .getPlayers()
-      .subscribe(
-        (data: Player[]) => {
-          this.players = data;
-        },
-        err => console.log('ERROR getting players: ', err)
-      );
+    this.playersSubscription = this.memoryPlayerService.getPlayers().subscribe(
+      (data: Player[]) => {
+        this.players = data;
+      },
+      err => console.log('ERROR getting players: ', err)
+    );
   }
 
   ngOnDestroy() {

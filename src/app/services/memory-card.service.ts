@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  Subject,
-} from 'rxjs';
-import {
-  Card,
-  Cards,
-} from './interfaces';
+import { Observable, Subject } from 'rxjs';
+import { Card, Cards } from './interfaces';
 import { MemoryCard } from './memory-card';
 import { ImageService } from './image.service';
 
@@ -51,16 +45,15 @@ export class MemoryCardService implements Cards {
   }
 
   public initCards(amount: number, imageSize: number): void {
-    this.imageService.getRandomImages(amount, imageSize)
-      .subscribe(
-        (data: string[]) => {
-          let imageUrls = data.concat(data);
-          imageUrls = this.shuffle<string>(imageUrls);
-          this.cards = imageUrls.map((imageUrl) => new MemoryCard(imageUrl));
-          this.cardsSubject.next(this.cards);
-        },
-        err => console.log('ERROR getting cards: ', err)
-      );
+    this.imageService.getRandomImages(amount, imageSize).subscribe(
+      (data: string[]) => {
+        let imageUrls = data.concat(data);
+        imageUrls = this.shuffle<string>(imageUrls);
+        this.cards = imageUrls.map(imageUrl => new MemoryCard(imageUrl));
+        this.cardsSubject.next(this.cards);
+      },
+      err => console.log('ERROR getting cards: ', err)
+    );
   }
 
   public shuffleCards(): void {
@@ -69,7 +62,7 @@ export class MemoryCardService implements Cards {
   }
 
   public removeCards(pairId: string): void {
-    this.cards.forEach((card) => {
+    this.cards.forEach(card => {
       if (card.pairId === pairId) {
         card.remove();
       }
@@ -78,7 +71,9 @@ export class MemoryCardService implements Cards {
   }
 
   public isPair(pairId: string): boolean {
-    const pairCards = this.cards.filter(card => card.pairId === pairId && card.uncovered).length;
+    const pairCards = this.cards.filter(
+      card => card.pairId === pairId && card.uncovered
+    ).length;
     return pairCards > 1;
   }
 
@@ -89,11 +84,15 @@ export class MemoryCardService implements Cards {
   }
 
   public coverCards(): void {
-    this.cards.forEach((card) => card.cover());
+    this.cards.forEach(card => card.cover());
     this.cardsSubject.next(this.cards);
   }
 
   public getCards(): Observable<Card[]> {
     return this.cardsSubject;
+  }
+
+  public getCardsSnapshot(): Array<Card> {
+    return this.cards.slice();
   }
 }

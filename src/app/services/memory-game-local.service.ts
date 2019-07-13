@@ -1,26 +1,65 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {
-  Game,
-  Player,
-  Players,
-  Card,
-  Cards,
-} from './interfaces';
+import { Observable, Subject } from 'rxjs';
+import { Game, Player, Players, Card, Cards } from './interfaces';
 import { MemoryPlayerService } from './memory-player.service';
 import { MemoryCardService } from './memory-card.service';
+import { MemoryBoardService } from './memory-board.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MemoryGameLocalService implements Game, Players, Cards {
+export class MemoryGameLocalService implements Game {
+  private gameOverSubject: Subject<boolean | Player[]>;
+
   constructor(
     private memoryPlayerService: MemoryPlayerService,
     private memoryCardService: MemoryCardService,
-  ) { }
+    private memoryBoardService: MemoryBoardService
+  ) {
+    this.gameOverSubject = new Subject<boolean | Player[]>();
+  }
 
   public init(): void {
     throw new Error('Method not implemented.');
+  }
+
+  public updateGame(card: Card, index: number): void {
+    this.toggleIsLockedBoard();
+    const amountOfUncoveredCards = this.uncoverCard(index);
+
+    if (amountOfUncoveredCards > 1) {
+      if (this.isPair(card.pairId)) {
+        setTimeout(() => {
+          this.removeCards(card.pairId);
+          this.incrementScore(this.getCurrentPlayerId());
+          this.toggleIsLockedBoard();
+          console.log(this.isGameOver());
+        }, 3000);
+      } else {
+        setTimeout(() => {
+          this.coverCards();
+          this.nextPlayer();
+          this.toggleIsLockedBoard();
+        }, 3000);
+      }
+    } else {
+      this.toggleIsLockedBoard();
+    }
+  }
+
+  public isGameOver(): void {
+    const cards = this.getCardsSnapshot();
+    const isGameOver =
+      cards.filter(card => card.removed).length === cards.length;
+    this.gameOverSubject.next(isGameOver ? this.getWinner() : false);
+  }
+
+  public getGameOver(): Observable<boolean | Player[]> {
+    return this.gameOverSubject;
+  }
+
+  public getWinner(): Player[] {
+    return this.memoryPlayerService.getWinner();
   }
 
   public reset(): void {
@@ -86,5 +125,13 @@ export class MemoryGameLocalService implements Game, Players, Cards {
 
   public getCards(): Observable<Card[]> {
     return this.memoryCardService.getCards();
+  }
+
+  public getCardsSnapshot(): Array<Card> {
+    return this.memoryCardService.getCardsSnapshot();
+  }
+
+  public toggleIsLockedBoard(): void {
+    return this.memoryBoardService.toggleIsLockedBoard();
   }
 }

@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,15 +8,13 @@ import { CardListComponent } from './card-list/card-list.component';
 import { CardComponent } from './card/card.component';
 import { StartViewComponent } from './start-view/start-view.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { Routes, RouterModule } from '@angular/router';
 import { BoardComponent } from './board/board.component';
-import { MatCardModule } from '@angular/material/card';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { PlayerComponent } from './player/player.component';
+import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
+import { MaterialModule } from './material-module';
 
 @NgModule({
   declarations: [
@@ -26,21 +24,20 @@ import { PlayerComponent } from './player/player.component';
     StartViewComponent,
     BoardComponent,
     PlayerListComponent,
-    PlayerComponent
+    PlayerComponent,
+    GameOverDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule
   ],
+  entryComponents: [GameOverDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

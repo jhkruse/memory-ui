@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from '../services/interfaces';
 import { MemoryGameLocalService } from '../services/memory-game-local.service';
-import { MemoryBoardService } from '../services/memory-board.service';
 
 @Component({
   selector: 'app-card',
@@ -13,8 +12,7 @@ export class CardComponent implements OnInit {
   @Input() index: number;
 
   constructor(
-    private memoryGameService: MemoryGameLocalService,
-    private memoryBoardService: MemoryBoardService
+    private memoryGameLocalService: MemoryGameLocalService
   ) { }
 
   ngOnInit() {
@@ -35,25 +33,6 @@ export class CardComponent implements OnInit {
   }
 
   handleOnClick(index: number, card: Card) {
-    this.memoryBoardService.toggleIsLocked();
-    const amountOfUncoveredCards = this.memoryGameService.uncoverCard(index);
-
-    if (amountOfUncoveredCards > 1) {
-      if (this.memoryGameService.isPair(card.pairId)) {
-        setTimeout(() => {
-          this.memoryGameService.removeCards(card.pairId);
-          this.memoryGameService.incrementScore(this.memoryGameService.getCurrentPlayerId());
-          this.memoryBoardService.toggleIsLocked();
-        }, 3000);
-      } else {
-        setTimeout(() => {
-          this.memoryGameService.coverCards();
-          this.memoryGameService.nextPlayer();
-          this.memoryBoardService.toggleIsLocked();
-        }, 3000);
-      }
-    } else {
-      this.memoryBoardService.toggleIsLocked();
-    }
+    this.memoryGameLocalService.updateGame(card, index);
   }
 }

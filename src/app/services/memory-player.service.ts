@@ -68,4 +68,9 @@ export class MemoryPlayerService implements Players {
   public getPlayers(): Observable<Player[]> {
     return this.playersSubject;
   }
+
+  public getWinner(): Player[] {
+    const maxScore = Math.max.apply(Math, this.players.map( player => player.score));
+    return this.players.filter(player => player.score === maxScore);
+  }
 }

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Board } from './interfaces';
 import { MemoryBoard } from './memory-board';
+import { MemoryGameLocalService } from '../services/memory-game-local.service';
+import { Card } from '../services/interfaces';
 import {
   Observable,
   Subject,
 } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,7 @@ export class MemoryBoardService {
     this.board = new MemoryBoard();
   }
 
-  public toggleIsLocked(): void {
+  public toggleIsLockedBoard(): void {
     this.board.toggleIsLocked();
     this.boardSubject.next(this.board);
   }
