@@ -1,4 +1,4 @@
-import { Card } from './interfaces';
+import { Card } from '../interfaces';
 
 export class MemoryCard implements Card {
   pairId: string;

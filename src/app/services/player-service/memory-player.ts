@@ -1,4 +1,4 @@
-import { Player } from './interfaces';
+import { Player } from '../interfaces';
 
 export class MemoryPlayer implements Player {
   name: string;

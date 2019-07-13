@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MemoryGameLocalService } from './memory-game-local.service';
+import { MemoryGameLocalService } from './memory-game.service';
 
 describe('MemoryGameService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

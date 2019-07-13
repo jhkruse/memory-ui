@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Card, Cards } from './interfaces';
+import { Card, Cards } from '../interfaces';
 import { MemoryCard } from './memory-card';
-import { ImageService } from './image.service';
+import { ImageService } from '../image-service/image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -90,7 +90,7 @@ export class MemoryCardService implements Cards {
     return this.cardsSubject;
   }
 
-  public getCardsSnapshot(): Array<Card> {
+  public getCardsSnapshot(): Card[] {
     return this.cards.slice();
   }
 }

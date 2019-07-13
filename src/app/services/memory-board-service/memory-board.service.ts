@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Board } from './interfaces';
+import { Board } from '../interfaces';
 import { MemoryBoard } from './memory-board';
-import { MemoryGameLocalService } from '../services/memory-game-local.service';
-import { Card } from '../services/interfaces';
+import { MemoryGameLocalService } from '../memory-game-service/memory-game.service';
+import { Card } from '../interfaces';
 import {
   Observable,
   Subject,

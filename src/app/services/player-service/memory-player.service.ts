@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MemoryPlayer } from './memory-player';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Player, Players } from './interfaces';
+import { Player, Players } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

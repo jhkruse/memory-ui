@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Card } from '../services/interfaces';
-import { MemoryGameLocalService } from '../services/memory-game-local.service';
+import { MemoryGameLocalService } from '../services/memory-game-service/memory-game.service';
 
 @Component({
   selector: 'app-card-list',

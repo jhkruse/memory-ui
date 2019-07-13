@@ -14,7 +14,7 @@ import {
   retry,
   map,
 } from 'rxjs/operators';
-import { PicsumImage } from './interfaces';
+import { PicsumImage } from '../interfaces';
 
 /**
  * The Picsum API base URL.

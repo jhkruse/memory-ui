@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Game, Player, Players, Card, Cards } from './interfaces';
-import { MemoryPlayerService } from './memory-player.service';
-import { MemoryCardService } from './memory-card.service';
-import { MemoryBoardService } from './memory-board.service';
+import { Game, Player, Card } from '../interfaces';
+import { MemoryPlayerService } from '../player-service/memory-player.service';
+import { MemoryCardService } from '../memory-card-service/memory-card.service';
+import { MemoryBoardService } from '../memory-board-service/memory-board.service';
 import { Router } from '@angular/router';
 
 @Injectable({

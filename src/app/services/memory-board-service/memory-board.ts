@@ -1,4 +1,4 @@
-import { Board } from './interfaces';
+import { Board } from '../interfaces';
 
 export class MemoryBoard implements Board {
   isLocked: boolean;

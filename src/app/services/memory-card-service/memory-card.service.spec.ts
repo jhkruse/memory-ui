@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CardService } from './memory-card.service';
+import { MemoryCardService } from './memory-card.service';
 
-describe('CardService', () => {
+describe('MemoryCardService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CardService = TestBed.get(CardService);
+    const service: MemoryCardService = TestBed.get(MemoryCardService);
     expect(service).toBeTruthy();
   });
 });
