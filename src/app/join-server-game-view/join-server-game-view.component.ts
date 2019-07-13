@@ -11,18 +11,13 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-/**
- * Maximum amount of pairs: 14 pairs => 4 to 28 cards.
- */
-const MAX_AMOUNT_PAIRS = 14;
-
 @Component({
   selector: 'app-join-server-game-view',
   templateUrl: './join-server-game-view.component.html',
   styleUrls: ['./join-server-game-view.component.css']
 })
 export class JoinServerGameViewComponent implements OnInit {
-  playerOneFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  playerTwoFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
 
   matcher = new FormErrorStateMatcher();
   serverList: string[];
@@ -31,13 +26,14 @@ export class JoinServerGameViewComponent implements OnInit {
     this.serverList = ['Server 1', 'Server2'];
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit(f: NgForm) {
     this.router.navigate(['/board'], {
       state: {
         data: {
-          playerOne: this.playerOneFormControl.value
+          network: true,
+          playerTwo: this.playerTwoFormControl.value
         }
       }
     });

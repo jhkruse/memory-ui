@@ -57,7 +57,7 @@ export interface Cards {
   removeCards(pairId: string): void;
   isPair(pairId: string): boolean;
   getCards(): Observable<Card[]>;
-  getCardsSnapshot(): Array<Card>;
+  getCardsSnapshot(): Card[];
 }
 
 export interface Game extends Players, Cards {

@@ -46,6 +46,7 @@ export class CreateLocalGameViewComponent implements OnInit {
     this.router.navigate(['/board'], {
       state: {
         data: {
+          network: false,
           playerOne: this.playerOneFormControl.value,
           playerTwo: this.playerTwoFormControl.value,
           cardPairs: this.cardAmountFormControl.value / 2

@@ -52,7 +52,7 @@ export class StartViewComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(this.playerOneFormControl.value);
+    console.log(this.playerOneFormControl.value); // TODO remove
     this.router.navigate(['/board'], {
       state: {
         data: {

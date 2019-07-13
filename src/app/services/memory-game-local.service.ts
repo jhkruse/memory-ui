@@ -13,6 +13,7 @@ export class MemoryGameLocalService implements Game {
   private gameOverSubject: Subject<boolean | Player[]>;
   private cardPairs: number;
   private imageSize: number;
+  private network: boolean;
 
   constructor(
     private memoryPlayerService: MemoryPlayerService,
@@ -23,11 +24,13 @@ export class MemoryGameLocalService implements Game {
     this.gameOverSubject = new Subject<boolean | Player[]>();
     this.cardPairs = 0;
     this.imageSize = 200;
+    this.network = false;
   }
 
-  public init(cardPairs: number, imageSize: number, playerNames: string[]): void {
+  public init(cardPairs: number, imageSize: number, playerNames: string[], network: boolean = false): void {
     this.cardPairs = cardPairs;
     this.imageSize = imageSize;
+    this.network = network;
 
     this.resetPlayers();
     this.initCards(this.cardPairs, this.imageSize);
@@ -144,7 +147,7 @@ export class MemoryGameLocalService implements Game {
     return this.memoryCardService.getCards();
   }
 
-  public getCardsSnapshot(): Array<Card> {
+  public getCardsSnapshot(): Card[] {
     return this.memoryCardService.getCardsSnapshot();
   }
 

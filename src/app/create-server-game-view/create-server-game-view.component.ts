@@ -40,14 +40,15 @@ export class CreateServerGameViewComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit(f: NgForm) {
     this.router.navigate(['/board'], {
       state: {
         data: {
+          network: true,
           playerOne: this.playerOneFormControl.value,
-          serverName: this.serverNameFormControl.value,
+          sessionName: this.serverNameFormControl.value,
           cardPairs: this.cardAmountFormControl.value / 2
         }
       }
