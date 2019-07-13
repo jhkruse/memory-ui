@@ -18,32 +18,38 @@ import { MaterialModule } from './material-module';
 import { WinnerSvgComponent } from './winner-svg/winner-svg.component';
 import { CreateLocalGameViewComponent } from './create-local-game-view/create-local-game-view.component';
 import { CreateServerGameViewComponent } from './create-server-game-view/create-server-game-view.component';
+import { JoinServerGameViewComponent } from './join-server-game-view/join-server-game-view.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CardListComponent,
-    CardComponent,
-    StartViewComponent,
-    BoardComponent,
-    PlayerListComponent,
-    PlayerComponent,
-    GameOverDialogComponent,
-    WinnerSvgComponent,
-    CreateLocalGameViewComponent,
-    CreateServerGameViewComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MaterialModule
-  ],
-  entryComponents: [GameOverDialogComponent],
-  providers: [],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      CardListComponent,
+      CardComponent,
+      StartViewComponent,
+      BoardComponent,
+      PlayerListComponent,
+      PlayerComponent,
+      GameOverDialogComponent,
+      WinnerSvgComponent,
+      CreateLocalGameViewComponent,
+      CreateServerGameViewComponent,
+      JoinServerGameViewComponent
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      MaterialModule
+   ],
+   entryComponents: [
+      GameOverDialogComponent
+   ],
+   providers: [],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule {}

@@ -1,8 +1,7 @@
 .settings-card {
   color: rgba(49, 155, 247, 0.6);
-  margin: auto;
-  width: 75%;
-  /* border: 1px solid rgba(49, 155, 247, 0.6); */
+  margin: 10px auto 10px auto;
+  max-width: 400px;
   padding: 10px;
   border-radius: 2px;
 }
