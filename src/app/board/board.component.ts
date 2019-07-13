@@ -14,7 +14,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class BoardComponent implements OnInit {
   private board: Board;
-  private gameOver: boolean | Player[];
 
   constructor(
     private memoryGameService: MemoryGameLocalService,
@@ -41,7 +40,6 @@ export class BoardComponent implements OnInit {
           this.memoryGameService.reset();
           break;
       }
-      console.log(result);
     });
   }
 

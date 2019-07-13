@@ -71,9 +71,7 @@ export class MemoryCardService implements Cards {
   }
 
   public isPair(pairId: string): boolean {
-    const pairCards = this.cards.filter(
-      card => card.pairId === pairId && card.uncovered
-    ).length;
+    const pairCards = this.cards.filter(card => card.pairId === pairId && card.uncovered).length;
     return pairCards > 1;
   }
 

@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class MemoryGameLocalService implements Game {
   private gameOverSubject: Subject<boolean | Player[]>;
+  private cardPairs: number;
+  private imageSize: number;
 
   constructor(
     private memoryPlayerService: MemoryPlayerService,
@@ -19,10 +21,15 @@ export class MemoryGameLocalService implements Game {
     private router: Router
   ) {
     this.gameOverSubject = new Subject<boolean | Player[]>();
+    this.cardPairs = 0;
+    this.imageSize = 200;
   }
 
   public init(cardPairs: number, imageSize: number, playerNames: string[]): void {
-    this.initCards(cardPairs, imageSize);
+    this.cardPairs = cardPairs;
+    this.imageSize = imageSize;
+
+    this.initCards(this.cardPairs, this.imageSize);
     playerNames.forEach(playerName => {
       this.addPlayer(playerName);
     });
@@ -68,6 +75,7 @@ export class MemoryGameLocalService implements Game {
 
   public reset(): void {
     this.resetScore();
+    this.initCards(this.cardPairs, this.imageSize);
   }
 
   public quit(): void {
