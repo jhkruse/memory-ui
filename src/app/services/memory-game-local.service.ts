@@ -21,10 +21,10 @@ export class MemoryGameLocalService implements Game {
     this.gameOverSubject = new Subject<boolean | Player[]>();
   }
 
-  public init(cardPairs: number, imageSize: number, players: Player[]): void {
+  public init(cardPairs: number, imageSize: number, playerNames: string[]): void {
     this.initCards(cardPairs, imageSize);
-    players.forEach(player => {
-      this.addPlayer(player);
+    playerNames.forEach(playerName => {
+      this.addPlayer(playerName);
     });
   }
 

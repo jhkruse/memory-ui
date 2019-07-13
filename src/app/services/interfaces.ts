@@ -61,7 +61,7 @@ export interface Cards {
 }
 
 export interface Game extends Players, Cards {
-  init(cardPairs: number, imageSize: number, players: Player[]): void;
+  init(cardPairs: number, imageSize: number, playerNames: string[]): void;
   updateGame(card: Card, index: number): void;
   isGameOver(): void;
   getGameOver(): Observable<boolean | Player[]>;
