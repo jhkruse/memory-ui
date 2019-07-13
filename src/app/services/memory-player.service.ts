@@ -13,8 +13,6 @@ export class MemoryPlayerService implements Players {
 
   constructor() {
     this.playersSubject = new BehaviorSubject<Player[]>([]);
-    this.resetPlayers();
-    this.currentPlayerId = 0;
   }
 
   public resetPlayers(): void {

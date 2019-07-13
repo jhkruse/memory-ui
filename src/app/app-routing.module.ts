@@ -11,14 +11,16 @@ const routes: Routes = [
   {
     path: 'board',
     component: BoardComponent
-  },
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(
-    routes,
-    { enableTracing: false }, // <-- debugging purposes only
-  )],
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      { enableTracing: false } // <-- debugging purposes only
+    )
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,0 +1,50 @@
+<mat-card class="settings-card">
+  <mat-card-content>
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="settings-form-field">
+        <input
+          name="playerOne"
+          matInput
+          placeholder="Player 1"
+          [formControl]="playerOneFormControl"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-hint>Please enter your name!</mat-hint>
+        <mat-error *ngIf="playerOneFormControl.hasError('minLength') && !playerOneFormControl.hasError('required')">
+          Please enter a player name with min length of 4 characters.
+        </mat-error>
+        <mat-error *ngIf="playerOneFormControl.hasError('required')">
+          Player name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="settings-form-field">
+        <input
+          name="serverName"
+          matInput
+          placeholder="Server name"
+          [formControl]="serverNameFormControl"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-hint>Please enter a server name!</mat-hint>
+        <mat-error *ngIf="serverNameFormControl.hasError('minLength') && !serverNameFormControl.hasError('required')">
+          Please enter a server name with min length of 4 characters.
+        </mat-error>
+        <mat-error *ngIf="serverNameFormControl.hasError('required')">
+          Server name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="settings-form-field">
+        <select name="cardAmount" matNativeControl required [formControl]="cardAmountFormControl">
+          <option *ngFor="let cardAmount of cardAmounts" [value]="cardAmount">{{ cardAmount }}</option>
+        </select>
+        <mat-hint>Please select how many cards you want to play!</mat-hint>
+      </mat-form-field>
+
+      <button class="settings-form-button" mat-raised-button [disabled]="!form.valid" color="primary">
+        Start Game
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

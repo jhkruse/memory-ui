@@ -1,48 +1,22 @@
-<mat-card class="settings-card">
-  <mat-card-header>
-    <!-- <div mat-card-avatar class="example-header-image"></div> -->
-    <img mat-card-avatar src="https://www.memozor.com/templates/memoire/images/memory_game_kids_colors_8_1.jpg"
-      alt="Memory Gamee">
-    <mat-card-title>Welcome to Memory!</mat-card-title>
-    <mat-card-subtitle>Please enter your game settings...</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <form #form="ngForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="settings-form-field">
-        <input name='playerOne' matInput placeholder="Player 1" [formControl]="playerOneFormControl"
-          [errorStateMatcher]="matcher">
-        <mat-hint>Please enter your name!</mat-hint>
-        <mat-error *ngIf="playerOneFormControl.hasError('minLength') && !playerOneFormControl.hasError('required')">
-          Please enter a player name with min length of 4 characters.
-        </mat-error>
-        <mat-error *ngIf="playerOneFormControl.hasError('required')">
-          Player name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="settings-form-field">
-        <input name='playerTwo' matInput placeholder="Player 2" [formControl]="playerTwoFormControl"
-          [errorStateMatcher]="matcher">
-        <mat-hint>Please enter your name!</mat-hint>
-        <mat-error *ngIf="playerTwoFormControl.hasError('minLength') && !playerTwoFormControl.hasError('required')">
-          Please enter a player name with min length of 4 characters.
-        </mat-error>
-        <mat-error *ngIf="playerTwoFormControl.hasError('required')">
-          Player name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="settings-form-field">
-        <select name='cardAmount' matNativeControl required [formControl]="cardAmountFormControl">
-          <option *ngFor="let cardAmount of cardAmounts" [value]="cardAmount">{{cardAmount}}</option>
-        </select>
-        <mat-hint>Please select how many cards you want to play!</mat-hint>
-      </mat-form-field>
-
-      <button class="settings-form-button" mat-raised-button [disabled]="!form.valid" color="primary">
-        Start Game
-      </button>
-
-    </form>
-  </mat-card-content>
-</mat-card>
+<mat-toolbar>
+  <!-- <div mat-card-avatar class="example-header-image"></div> -->
+  <img
+    mat-card-avatar
+    src="https://www.memozor.com/templates/memoire/images/memory_game_kids_colors_8_1.jpg"
+    alt="Memory Gamee"
+  />
+  <h2>Welcome to Memory!</h2>
+</mat-toolbar>
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+  <mat-tab label="Start local Game">
+    <ng-template matTabContent>
+      <app-create-local-game-view></app-create-local-game-view>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Start Server Game">
+    <ng-template matTabContent>
+      <app-create-server-game-view></app-create-server-game-view>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Join Server Game"> Content 3 </mat-tab>
+</mat-tab-group>

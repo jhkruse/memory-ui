@@ -29,7 +29,9 @@ export class MemoryGameLocalService implements Game {
     this.cardPairs = cardPairs;
     this.imageSize = imageSize;
 
+    this.resetPlayers();
     this.initCards(this.cardPairs, this.imageSize);
+
     playerNames.forEach(playerName => {
       this.addPlayer(playerName);
     });
