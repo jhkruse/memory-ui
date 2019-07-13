@@ -15,6 +15,7 @@ import { PlayerListComponent } from './player-list/player-list.component';
 import { PlayerComponent } from './player/player.component';
 import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
 import { MaterialModule } from './material-module';
+import { WinnerSvgComponent } from './winner-svg/winner-svg.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MaterialModule } from './material-module';
     BoardComponent,
     PlayerListComponent,
     PlayerComponent,
-    GameOverDialogComponent
+    GameOverDialogComponent,
+    WinnerSvgComponent
   ],
   imports: [
     BrowserModule,

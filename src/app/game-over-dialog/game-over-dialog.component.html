@@ -1,13 +1,15 @@
-<h1 mat-dialog-title>Hi {{ data.name }}</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.animal" />
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button cdkFocusInitial>
-    Ok
-  </button>
-</div>
+<ng-container *ngIf="data?.length === 1">
+  <h1 mat-dialog-title>And the winner is...</h1>
+  <div mat-dialog-content>
+    <ng-container *ngFor="let player of data; index as index">
+      <app-player [player]="player"></app-player>
+      <app-winner-svg></app-winner-svg>
+    </ng-container>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="'quit'">Quit game</button>
+    <button mat-button [mat-dialog-close]="'reset'" cdkFocusInitial>
+      Reset game
+    </button>
+  </div>
+</ng-container>

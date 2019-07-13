@@ -4,6 +4,7 @@ import { Game, Player, Players, Card, Cards } from './interfaces';
 import { MemoryPlayerService } from './memory-player.service';
 import { MemoryCardService } from './memory-card.service';
 import { MemoryBoardService } from './memory-board.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class MemoryGameLocalService implements Game {
   constructor(
     private memoryPlayerService: MemoryPlayerService,
     private memoryCardService: MemoryCardService,
-    private memoryBoardService: MemoryBoardService
+    private memoryBoardService: MemoryBoardService,
+    private router: Router
   ) {
     this.gameOverSubject = new Subject<boolean | Player[]>();
   }
@@ -68,7 +70,7 @@ export class MemoryGameLocalService implements Game {
   }
 
   public quit(): void {
-    throw new Error('Method not implemented.');
+    this.router.navigateByUrl('');
   }
 
   public resetPlayers(): void {

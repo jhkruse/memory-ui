@@ -1,10 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { Player } from '../services/interfaces';
 
 @Component({
   selector: 'app-game-over-dialog',
@@ -14,12 +10,8 @@ export interface DialogData {
 export class GameOverDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GameOverDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: Player[]
   ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
   ngOnInit() {}
 }

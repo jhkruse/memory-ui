@@ -1,8 +1,15 @@
 <mat-card [ngClass]="player.active ? 'player' : 'player-inactive'">
   <mat-card-header>
-    <img mat-card-avatar class="player-image"
-      [ngStyle]="{'background-image': 'url(https://api.adorable.io/avatars/32/' + player.name + '.png)'}" />
-    <mat-card-title>Player {{playerNo}}: {{player.name}}</mat-card-title>
-    <mat-card-subtitle class="player-score">Score: {{player.score}}</mat-card-subtitle>
+    <img
+      mat-card-avatar
+      class="player-image"
+      [ngStyle]="{
+        'background-image': 'url(https://api.adorable.io/avatars/32/' + player.name + '.png)'
+      }"
+    />
+    <mat-card-title>
+      <label *ngIf="playerNo">Player {{ playerNo }}: </label>{{ player.name }}
+    </mat-card-title>
+    <mat-card-subtitle class="player-score"> Score: {{ player.score }} </mat-card-subtitle>
   </mat-card-header>
 </mat-card>
