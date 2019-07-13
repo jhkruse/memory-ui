@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  BehaviorSubject,
-} from 'rxjs';
-import {
-  Player,
-  Players,
-} from './interfaces';
+import { MemoryPlayer } from './memory-player';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Player, Players } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -34,23 +29,19 @@ export class MemoryPlayerService implements Players {
   }
 
   public addPlayer(name: string): number {
-    this.players.push({
-      name,
-      score: 0,
-      active: this.players.length ? false : true,
-    });
+    this.players.push(new MemoryPlayer(name, this.players.length ? false : true));
     this.playersSubject.next(this.players);
     return this.players.length - 1;
   }
 
   public nextPlayer(): number {
-    this.players[this.currentPlayerId].active = false;
+    this.players[this.currentPlayerId].setInactive();
     if (this.currentPlayerId === this.players.length - 1) {
       this.currentPlayerId = 0;
     } else {
       this.currentPlayerId++;
     }
-    this.players[this.currentPlayerId].active = true;
+    this.players[this.currentPlayerId].setActive();
     this.playersSubject.next(this.players);
     return this.currentPlayerId;
   }
@@ -59,6 +50,13 @@ export class MemoryPlayerService implements Players {
     this.players[playerId].score++;
     this.playersSubject.next(this.players);
     return this.players[playerId].score;
+  }
+
+  public resetScore(): void {
+    this.players.forEach(player => {
+      player.resetScore();
+    });
+    this.playersSubject.next(this.players);
   }
 
   public getCurrentPlayerId(): number {
@@ -70,7 +68,7 @@ export class MemoryPlayerService implements Players {
   }
 
   public getWinner(): Player[] {
-    const maxScore = Math.max.apply(Math, this.players.map( player => player.score));
+    const maxScore = Math.max.apply(Math, this.players.map(player => player.score));
     return this.players.filter(player => player.score === maxScore);
   }
 }

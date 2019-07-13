@@ -51,8 +51,7 @@ export class MemoryGameLocalService implements Game {
 
   public isGameOver(): void {
     const cards = this.getCardsSnapshot();
-    const isGameOver =
-      cards.filter(card => card.removed).length === cards.length;
+    const isGameOver = cards.filter(card => card.removed).length === cards.length;
     this.gameOverSubject.next(isGameOver ? this.getWinner() : false);
   }
 
@@ -65,8 +64,7 @@ export class MemoryGameLocalService implements Game {
   }
 
   public reset(): void {
-    this.resetPlayers();
-    this.shuffleCards();
+    this.resetScore();
   }
 
   public quit(): void {
@@ -91,6 +89,10 @@ export class MemoryGameLocalService implements Game {
 
   public incrementScore(playerId: number): number {
     return this.memoryPlayerService.incrementScore(playerId);
+  }
+
+  public resetScore(): void {
+    this.memoryPlayerService.resetScore();
   }
 
   public getCurrentPlayerId(): number {

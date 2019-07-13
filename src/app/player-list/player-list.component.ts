@@ -9,8 +9,7 @@ import { MemoryGameLocalService } from '../services/memory-game-local.service';
   styleUrls: ['./player-list.component.css']
 })
 export class PlayerListComponent implements OnInit, OnDestroy {
-  private players: Player[];
-
+  public players: Player[];
   private playersSubscription: Subscription;
 
   constructor(private memoryPlayerService: MemoryGameLocalService) {

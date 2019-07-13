@@ -16,6 +16,10 @@ export interface Player {
   name: string;
   score: number;
   active: boolean;
+  setActive(): void;
+  setInactive(): void;
+  incrementScore(): void;
+  resetScore(): void;
 }
 
 export interface Card {
@@ -39,6 +43,7 @@ export interface Players {
   addPlayer(name: string): number;
   nextPlayer(): number;
   incrementScore(playerId: number): number;
+  resetScore(): void;
   getCurrentPlayerId(): number;
   getPlayers(): Observable<Player[]>;
   getWinner(): Player[];

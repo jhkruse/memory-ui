@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Card } from '../services/interfaces';
 import { MemoryGameLocalService } from '../services/memory-game-local.service';
@@ -13,7 +9,7 @@ import { MemoryGameLocalService } from '../services/memory-game-local.service';
   styleUrls: ['./card-list.component.css']
 })
 export class CardListComponent implements OnInit, OnDestroy {
-  private cards: Card[];
+  public cards: Card[];
   private cardsSubscription: Subscription;
 
   constructor(private memoryCardService: MemoryGameLocalService) {
@@ -21,14 +17,12 @@ export class CardListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.cardsSubscription = this.memoryCardService
-      .getCards()
-      .subscribe(
-        (data: Card[]) => {
-          this.cards = data;
-        },
-        err => console.log('ERROR getting cards: ', err)
-      );
+    this.cardsSubscription = this.memoryCardService.getCards().subscribe(
+      (data: Card[]) => {
+        this.cards = data;
+      },
+      err => console.log('ERROR getting cards: ', err)
+    );
   }
 
   ngOnDestroy() {
