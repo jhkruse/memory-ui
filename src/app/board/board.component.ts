@@ -47,9 +47,10 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     if (history.state.data) {
-      this.memoryGameService.initCards(history.state.data.cardPairs, 200);
-      this.memoryGameService.addPlayer(history.state.data.playerOne);
-      this.memoryGameService.addPlayer(history.state.data.playerTwo);
+      this.memoryGameService.init(history.state.data.cardPairs, 200, [
+        history.state.data.playerOne,
+        history.state.data.playerTwo
+      ]);
     } else {
       // Go back to initial (players) view.
       this.router.navigateByUrl('');

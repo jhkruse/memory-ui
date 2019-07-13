@@ -21,8 +21,11 @@ export class MemoryGameLocalService implements Game {
     this.gameOverSubject = new Subject<boolean | Player[]>();
   }
 
-  public init(): void {
-    throw new Error('Method not implemented.');
+  public init(cardPairs: number, imageSize: number, players: Player[]): void {
+    this.initCards(cardPairs, imageSize);
+    players.forEach(player => {
+      this.addPlayer(player);
+    });
   }
 
   public updateGame(card: Card, index: number): void {
