@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Card } from '../services/interfaces';
-import { MemoryGameLocalService } from '../services/memory-game-service/memory-game.service';
+import { Card } from '../../services/interfaces';
+import { MemoryGameLocalService } from '../../services/memory-game-service/memory-game.service';
 
 @Component({
   selector: 'app-card',

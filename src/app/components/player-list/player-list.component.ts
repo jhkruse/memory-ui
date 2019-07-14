@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Player } from '../services/interfaces';
-import { MemoryGameLocalService } from '../services/memory-game-service/memory-game.service';
+import { Player } from '../../services/interfaces';
+import { MemoryGameLocalService } from '../../services/memory-game-service/memory-game.service';
 
 @Component({
   selector: 'app-player-list',

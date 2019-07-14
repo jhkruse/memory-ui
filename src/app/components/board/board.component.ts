@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player } from '../services/interfaces';
-import { MemoryGameLocalService } from '../services/memory-game-service/memory-game.service';
-import { MemoryBoardService } from '../services/memory-board-service/memory-board.service';
-import { Board } from '../services/interfaces';
-import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.component';
+import { Player } from '../../services/interfaces';
+import { MemoryGameLocalService } from '../../services/memory-game-service/memory-game.service';
+import { MemoryBoardService } from '../../services/memory-board-service/memory-board.service';
+import { Board } from '../../services/interfaces';
+import { GameOverDialogComponent } from '../../dialogs/game-over-dialog/game-over-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
