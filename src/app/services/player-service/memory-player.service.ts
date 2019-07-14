@@ -12,6 +12,7 @@ export class MemoryPlayerService implements Players {
   private currentPlayerId: number;
 
   constructor() {
+    this.players = [];
     this.playersSubject = new BehaviorSubject<Player[]>([]);
   }
 

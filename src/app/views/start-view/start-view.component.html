@@ -6,9 +6,8 @@
 </mat-toolbar>
 <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
   <mat-tab label="Start New Local Game">
-    <ng-template matTabContent>
-      <app-create-local-game-view></app-create-local-game-view>
-    </ng-template>
+    <!-- NO lazy loading for component shown as default! -->
+    <app-create-local-game-view></app-create-local-game-view>
   </mat-tab>
   <mat-tab label="Start New Network Game">
     <ng-template matTabContent>

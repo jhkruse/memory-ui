@@ -27,9 +27,9 @@ export class CreateLocalGameViewComponent implements OnInit {
    */
   @Input() cardAmounts: number[];
 
-  playerOneFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
-  playerTwoFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
-  cardAmountFormControl = new FormControl(16, [Validators.required]);
+  public playerOneFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  public playerTwoFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  public cardAmountFormControl = new FormControl(16, [Validators.required]);
 
   matcher = new FormErrorStateMatcher();
 
@@ -40,7 +40,8 @@ export class CreateLocalGameViewComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  public ngOnInit() {
+  }
 
   onSubmit(f: NgForm) {
     this.router.navigate(['/board'], {

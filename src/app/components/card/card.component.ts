@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from '../../services/interfaces';
-import { MemoryGameLocalService } from '../../services/memory-game-service/memory-game.service';
+import { MemoryGameService } from '../../services/memory-game-service/memory-game.service';
 
 @Component({
   selector: 'app-card',
@@ -12,7 +12,7 @@ export class CardComponent implements OnInit {
   @Input() index: number;
 
   constructor(
-    private memoryGameLocalService: MemoryGameLocalService
+    private memoryGameLocalService: MemoryGameService
   ) { }
 
   ngOnInit() {

@@ -14,10 +14,11 @@
       </mat-form-field>
     </form>
     <mat-list role="list">
-      <ng-container *ngFor="let server of serverList; let i = index">
+      <ng-container *ngFor="let session of sessions; let i = index">
         <mat-list-item role="listitem">
-          <p matLine>{{ server }}</p>
-          <button matLine class="settings-form-button" mat-raised-button [disabled]="!form.valid" color="primary">
+          <p matLine>{{ session.name }}</p>
+          <button matLine class="settings-form-button" (click)="onSubmit(session)" mat-raised-button
+            [disabled]="!form.valid" color="primary">
             Join Game
           </button>
         </mat-list-item>

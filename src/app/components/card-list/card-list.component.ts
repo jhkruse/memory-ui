@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Card } from '../../services/interfaces';
-import { MemoryGameLocalService } from '../../services/memory-game-service/memory-game.service';
+import { MemoryGameService } from '../../services/memory-game-service/memory-game.service';
 
 @Component({
   selector: 'app-card-list',
@@ -12,7 +12,7 @@ export class CardListComponent implements OnInit, OnDestroy {
   public cards: Card[];
   private cardsSubscription: Subscription;
 
-  constructor(private memoryCardService: MemoryGameLocalService) {
+  constructor(private memoryCardService: MemoryGameService) {
     this.cards = [];
   }
 

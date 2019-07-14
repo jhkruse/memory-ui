@@ -44,6 +44,12 @@ export class MemoryCardService implements Cards {
     return this.cards.filter(card => card.uncovered).length;
   }
 
+  public createCards(cards: Card[]): void {
+    console.log(`>>>>> CREATE CARDS: ${JSON.stringify(cards)}`);
+    this.cards = cards;
+    this.cardsSubject.next(this.cards);
+  }
+
   public initCards(amount: number, imageSize: number): void {
     this.imageService.getRandomImages(amount, imageSize).subscribe(
       (data: string[]) => {

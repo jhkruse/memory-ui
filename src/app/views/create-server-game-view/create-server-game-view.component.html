@@ -2,13 +2,8 @@
   <mat-card-content>
     <form #form="ngForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="settings-form-field">
-        <input
-          name="playerOne"
-          matInput
-          placeholder="Player 1"
-          [formControl]="playerOneFormControl"
-          [errorStateMatcher]="matcher"
-        />
+        <input name="playerOne" matInput placeholder="Player 1" [formControl]="playerOneFormControl"
+          [errorStateMatcher]="matcher" />
         <mat-hint>Please enter your name!</mat-hint>
         <mat-error *ngIf="playerOneFormControl.hasError('minLength') && !playerOneFormControl.hasError('required')">
           Please enter a player name with min length of 4 characters.
@@ -19,19 +14,14 @@
       </mat-form-field>
 
       <mat-form-field class="settings-form-field">
-        <input
-          name="serverName"
-          matInput
-          placeholder="Server name"
-          [formControl]="serverNameFormControl"
-          [errorStateMatcher]="matcher"
-        />
-        <mat-hint>Please enter a server name!</mat-hint>
-        <mat-error *ngIf="serverNameFormControl.hasError('minLength') && !serverNameFormControl.hasError('required')">
+        <input name="sessionName" matInput placeholder="Session name" [formControl]="sessionNameFormControl"
+          [errorStateMatcher]="matcher" />
+        <mat-hint>Please enter a game session name!</mat-hint>
+        <mat-error *ngIf="sessionNameFormControl.hasError('minLength') && !sessionNameFormControl.hasError('required')">
           Please enter a server name with min length of 4 characters.
         </mat-error>
-        <mat-error *ngIf="serverNameFormControl.hasError('required')">
-          Server name is <strong>required</strong>
+        <mat-error *ngIf="sessionNameFormControl.hasError('required')">
+          Game session name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 

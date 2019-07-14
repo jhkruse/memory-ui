@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MemoryGameLocalService } from './memory-game.service';
+import { MemoryGameService } from './memory-game.service';
 
 describe('MemoryGameService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: MemoryGameLocalService = TestBed.get(MemoryGameLocalService);
+    const service: MemoryGameService = TestBed.get(MemoryGameService);
     expect(service).toBeTruthy();
   });
 });

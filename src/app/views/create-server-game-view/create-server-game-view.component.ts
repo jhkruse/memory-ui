@@ -28,7 +28,7 @@ export class CreateServerGameViewComponent implements OnInit {
   @Input() cardAmounts: number[];
 
   playerOneFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
-  serverNameFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  sessionNameFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
   cardAmountFormControl = new FormControl(16, [Validators.required]);
 
   matcher = new FormErrorStateMatcher();
@@ -46,9 +46,9 @@ export class CreateServerGameViewComponent implements OnInit {
     this.router.navigate(['/board'], {
       state: {
         data: {
-          network: true,
+          network: 'create',
           playerOne: this.playerOneFormControl.value,
-          sessionName: this.serverNameFormControl.value,
+          sessionName: this.sessionNameFormControl.value,
           cardPairs: this.cardAmountFormControl.value / 2
         }
       }
