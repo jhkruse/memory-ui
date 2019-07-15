@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
     private router: Router,
     public gameOverDialog: MatDialog,
     public waitingForPlayerDialog: MatDialog
-  ) {}
+  ) { }
 
   openGameOverDialog(data: boolean | Player[]): void {
     this.gameOverDialogRef = this.gameOverDialog.open(GameOverDialogComponent, {
@@ -88,7 +88,6 @@ export class BoardComponent implements OnInit {
                 const currentSession = data.filter(sessionMessage => {
                   return sessionMessage.id === this.memoryGameService.getNetworkSessionId();
                 });
-                console.log(currentSession);
                 if (currentSession.length && currentSession[0].status === 'open') {
                   this.openWaitingForPlayerDialog();
                 } else if (currentSession.length && currentSession[0].status === 'joined') {

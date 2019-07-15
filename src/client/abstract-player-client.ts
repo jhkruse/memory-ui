@@ -99,7 +99,7 @@ export abstract class AbstractPlayerClient {
   }
 
   public setPlayerIndex(playerIndex: number) {
-    return (this.playerIndex = playerIndex);
+    this.playerIndex = playerIndex;
   }
 
   public startGame(sessionName: string, player?: PlayerModel, cards: CardModel[] = []): SessionMessage {

@@ -107,7 +107,7 @@ export class MemoryGameService implements Game {
     //   err => console.log('ERROR getting cards: ', err)
     // );
 
-    players.forEach(player => this.addPlayer(player.name));
+    players.forEach(player => this.addPlayer(player.name, player.networkId));
 
     const cardsModel: CardModel[] = session.cards.slice();
     const cards: Card[] = cardsModel.map(cardModel => {
