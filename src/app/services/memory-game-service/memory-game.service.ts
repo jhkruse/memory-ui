@@ -62,8 +62,8 @@ export class MemoryGameService implements Game {
     this.networkSessionId = session.id;
     this.socketClient.setPlayerIndex(session.players.length);
     this.socketClient.setPlayerNetworkId(this.networkPlayerId);
-    console.log(`JOINING PLAYER ${this.socketClient.getPlayerIndex() + 1} on session ${JSON.stringify(session)}`);
-    console.log(`PLAYER ${this.socketClient.getPlayerIndex() + 1} network ID: ${this.networkPlayerId}`);
+    // console.log(`JOINING PLAYER ${this.socketClient.getPlayerIndex() + 1} on session ${JSON.stringify(session)}`);
+    // console.log(`PLAYER ${this.socketClient.getPlayerIndex() + 1} network ID: ${this.networkPlayerId}`);
 
     const newPlayer: PlayerModel = {
       networkId: this.networkPlayerId,
