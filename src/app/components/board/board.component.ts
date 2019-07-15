@@ -20,16 +20,17 @@ export class BoardComponent implements OnInit {
     private memoryGameService: MemoryGameService,
     private memoryBoardService: MemoryBoardService,
     private router: Router,
-    public dialog: MatDialog
+    public gameOverDialog: MatDialog,
+    public waitingForPlayerDialog: MatDialog
   ) {}
 
-  openDialog(data: boolean | Player[]): void {
-    const dialogRef = this.dialog.open(GameOverDialogComponent, {
+  openGameOverDialog(data: boolean | Player[]): void {
+    const gameOverDialog = this.gameOverDialog.open(GameOverDialogComponent, {
       width: '400px',
       data
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    gameOverDialog.afterClosed().subscribe(result => {
       switch (result) {
         case 'reset':
           this.memoryGameService.reset();
@@ -41,6 +42,12 @@ export class BoardComponent implements OnInit {
           this.memoryGameService.reset();
           break;
       }
+    });
+  }
+
+  openWaitingForPlayerDialog(): void {
+    this.waitingForPlayerDialog.open(GameOverDialogComponent, {
+      width: '400px'
     });
   }
 
@@ -68,6 +75,7 @@ export class BoardComponent implements OnInit {
                 });
 
                 if (currentSession && currentSession[0].status === 'open') {
+                  this.openWaitingForPlayerDialog();
                 }
               },
               err => console.log('ERROR getting gameOver: ', err)
@@ -99,7 +107,7 @@ export class BoardComponent implements OnInit {
     this.memoryGameService.getGameOver().subscribe(
       (data: boolean | Player[]) => {
         if (data) {
-          this.openDialog(data);
+          this.openGameOverDialog(data);
         }
       },
       err => console.log('ERROR getting gameOver: ', err)
