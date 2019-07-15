@@ -1,6 +1,8 @@
 {
   "name": "memory-ui",
   "version": "0.0.0",
+  "description": "A Memory game based on Angular playable locally or over network (the latter needs [memory server](https://github.com/deadratfink/memory-server)",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
