@@ -33,8 +33,8 @@ export class MemoryPlayerService implements Players {
     this.nextPlayer();
   }
 
-  public addPlayer(name: string): number {
-    this.players.push(new MemoryPlayer(name, this.players.length ? false : true));
+  public addPlayer(name: string, networkId?: string): number {
+    this.players.push(new MemoryPlayer(name, this.players.length ? false : true, networkId));
     this.playersSubject.next(this.players);
     return this.players.length - 1;
   }

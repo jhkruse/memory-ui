@@ -43,7 +43,7 @@ export interface Players {
   createPlayers(players: Player[]): void;
   resetPlayers(): void;
   removePlayer(id: number): void;
-  addPlayer(name: string): number;
+  addPlayer(name: string, networkId?: string): number;
   nextPlayer(): number;
   incrementScore(playerId: number): number;
   resetScore(): void;

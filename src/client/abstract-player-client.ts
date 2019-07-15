@@ -109,7 +109,7 @@ export abstract class AbstractPlayerClient {
       sessionOwnerNetworkId: this.playerNetworkId,
       senderPlayerIndex: 0,
       senderPlayerNetworkId: this.playerNetworkId,
-      players: [],
+      players: [player],
       cards,
     };
     this.socket.emit(PLAYER_START, session);
