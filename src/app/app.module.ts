@@ -9,7 +9,6 @@ import { CardComponent } from './components/card/card.component';
 import { StartViewComponent } from './views/start-view/start-view.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
 import { BoardComponent } from './components/board/board.component';
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { PlayerComponent } from './components/player/player.component';
@@ -19,37 +18,35 @@ import { WinnerSvgComponent } from './components/winner-svg/winner-svg.component
 import { CreateLocalGameViewComponent } from './views/create-local-game-view/create-local-game-view.component';
 import { CreateServerGameViewComponent } from './views/create-server-game-view/create-server-game-view.component';
 import { JoinServerGameViewComponent } from './views/join-server-game-view/join-server-game-view.component';
+import { BoardFooterComponent } from './components/board-footer/board-footer.component';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      CardListComponent,
-      CardComponent,
-      StartViewComponent,
-      BoardComponent,
-      PlayerListComponent,
-      PlayerComponent,
-      GameOverDialogComponent,
-      WinnerSvgComponent,
-      CreateLocalGameViewComponent,
-      CreateServerGameViewComponent,
-      JoinServerGameViewComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      FormsModule,
-      ReactiveFormsModule,
-      HttpClientModule,
-      MaterialModule
-   ],
-   entryComponents: [
-      GameOverDialogComponent
-   ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    CardListComponent,
+    CardComponent,
+    StartViewComponent,
+    BoardComponent,
+    PlayerListComponent,
+    PlayerComponent,
+    GameOverDialogComponent,
+    WinnerSvgComponent,
+    CreateLocalGameViewComponent,
+    CreateServerGameViewComponent,
+    JoinServerGameViewComponent,
+    BoardFooterComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MaterialModule
+  ],
+  entryComponents: [GameOverDialogComponent],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

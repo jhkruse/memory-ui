@@ -1,0 +1,8 @@
+.mat-toolbar {
+  position: fixed;
+  bottom: 0;
+}
+
+.mat-toolbar button {
+  margin-right: 8px;
+}
