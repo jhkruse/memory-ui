@@ -20,7 +20,7 @@ export class MemoryGameService implements Game {
   private network: boolean | string;
   private networkPlayerId: string;
   private networkSessionName: string;
-  private networkSession: SessionMessage;
+  private networkSessionId: string;
   private socketClient: PlayerSocketClient;
 
   constructor(
@@ -142,7 +142,7 @@ export class MemoryGameService implements Game {
 
     console.log(`STARTING PLAYER ${this.socketClient.getPlayerIndex() + 1}`);
 
-    this.networkSession = this.socketClient.startGame(this.networkSessionName, {
+    this.networkSessionId = this.socketClient.startGame(this.networkSessionName, {
       networkId: this.networkPlayerId,
       name: playerName,
       score: 0,
@@ -303,8 +303,8 @@ export class MemoryGameService implements Game {
     return this.socketClient.getSessions();
   }
 
-  public getNetworkSession(): SessionMessage {
-    return this.networkSession;
+  public getNetworkSessionId(): string {
+    return this.networkSessionId;
   }
 
   public getCardsSnapshot(): Card[] {

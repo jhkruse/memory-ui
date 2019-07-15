@@ -1,15 +1,6 @@
 <ng-container *ngIf="data?.length === 1">
   <h1 mat-dialog-title>Waiting for other player...</h1>
-  <div mat-dialog-content>
-    <ng-container *ngFor="let player of data; index as index">
-      <app-player [player]="player"></app-player>
-      <app-winner-svg></app-winner-svg>
-    </ng-container>
-  </div>
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="'quit'">Quit game</button>
-    <button mat-button [mat-dialog-close]="'reset'" cdkFocusInitial>
-      Reset game
-    </button>
+    <button mat-button [mat-dialog-close]="'quit'">Quit server game</button>
   </div>
 </ng-container>

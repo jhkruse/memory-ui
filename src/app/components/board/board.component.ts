@@ -64,7 +64,7 @@ export class BoardComponent implements OnInit {
             this.memoryGameService.getNetworkSessions().subscribe(
               (data: SessionMessage[]) => {
                 const currentSession = data.filter(sessionMessage => {
-                  return sessionMessage.id === this.memoryGameService.getNetworkSession().id;
+                  return sessionMessage.id === this.memoryGameService.getNetworkSessionId();
                 });
 
                 if (currentSession && currentSession[0].status === 'open') {
