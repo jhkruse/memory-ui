@@ -1,5 +1,8 @@
-<ng-container *ngIf="data?.length === 1">
+<ng-container>
   <h1 mat-dialog-title>Waiting for other player...</h1>
+  <div mat-dialog-content>
+    <mat-progress-spinner mode="indeterminate" diameter="50" strokeWidth="5"></mat-progress-spinner>
+  </div>
   <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="'quit'">Quit server game</button>
   </div>

@@ -5,7 +5,8 @@ import { MemoryGameService } from '../../services/memory-game-service/memory-gam
 import { MemoryBoardService } from '../../services/memory-board-service/memory-board.service';
 import { Board } from '../../services/interfaces';
 import { GameOverDialogComponent } from '../../dialogs/game-over-dialog/game-over-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { WaitingForPlayerDialogComponent } from '../../dialogs/waiting-for-player-dialog/waiting-for-player-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SessionMessage } from '../../../client/interfaces';
 
 @Component({
@@ -15,6 +16,8 @@ import { SessionMessage } from '../../../client/interfaces';
 })
 export class BoardComponent implements OnInit {
   private board: Board;
+  private gameOverDialogRef: MatDialogRef<GameOverDialogComponent>;
+  private waitingForPlayerDialogRef: MatDialogRef<WaitingForPlayerDialogComponent>;
 
   constructor(
     private memoryGameService: MemoryGameService,
@@ -25,12 +28,13 @@ export class BoardComponent implements OnInit {
   ) {}
 
   openGameOverDialog(data: boolean | Player[]): void {
-    const gameOverDialog = this.gameOverDialog.open(GameOverDialogComponent, {
+    this.gameOverDialogRef = this.gameOverDialog.open(GameOverDialogComponent, {
       width: '400px',
+      disableClose: true,
       data
     });
 
-    gameOverDialog.afterClosed().subscribe(result => {
+    this.gameOverDialogRef.afterClosed().subscribe(result => {
       switch (result) {
         case 'reset':
           this.memoryGameService.reset();
@@ -46,9 +50,20 @@ export class BoardComponent implements OnInit {
   }
 
   openWaitingForPlayerDialog(): void {
-    this.waitingForPlayerDialog.open(GameOverDialogComponent, {
-      width: '400px'
+    if (!this.waitingForPlayerDialogRef) {
+      this.waitingForPlayerDialogRef = this.waitingForPlayerDialog.open(WaitingForPlayerDialogComponent, {
+        width: '400px',
+        disableClose: true
+      });
+    }
+
+    this.waitingForPlayerDialogRef.afterClosed().subscribe(result => {
+      this.waitingForPlayerDialogRef = undefined;
     });
+  }
+
+  closeWaitingForPlayerDialog(): void {
+    this.waitingForPlayerDialog.closeAll();
   }
 
   ngOnInit() {
@@ -73,9 +88,11 @@ export class BoardComponent implements OnInit {
                 const currentSession = data.filter(sessionMessage => {
                   return sessionMessage.id === this.memoryGameService.getNetworkSessionId();
                 });
-
-                if (currentSession && currentSession[0].status === 'open') {
+                console.log(currentSession);
+                if (currentSession.length && currentSession[0].status === 'open') {
                   this.openWaitingForPlayerDialog();
+                } else if (currentSession.length && currentSession[0].status === 'joined') {
+                  this.closeWaitingForPlayerDialog();
                 }
               },
               err => console.log('ERROR getting gameOver: ', err)

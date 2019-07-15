@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Player } from '../../services/interfaces';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-waiting-for-player-dialog',
@@ -8,10 +7,7 @@ import { Player } from '../../services/interfaces';
   styleUrls: ['./waiting-for-player-dialog.component.css']
 })
 export class WaitingForPlayerDialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<WaitingForPlayerDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Player[]
-  ) {}
+  constructor(public dialogRef: MatDialogRef<WaitingForPlayerDialogComponent>) {}
 
   ngOnInit() {}
 }
