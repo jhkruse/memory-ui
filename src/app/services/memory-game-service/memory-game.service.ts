@@ -10,6 +10,9 @@ import { PlayerSocketClient } from './player-socket-client';
 import { PlayerModel, CardModel, SessionMessage } from '../../../client/interfaces';
 import { MemoryCard } from '../memory-card-service/memory-card';
 
+/**
+ * @classdesc The game service controlling the game process over time.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +26,9 @@ export class MemoryGameService implements Game {
   private networkSessionId: string;
   private socketClient: PlayerSocketClient;
 
+  /**
+   * Constructor initializing the internal defaults.
+   */
   constructor(
     private memoryPlayerService: MemoryPlayerService,
     private memoryCardService: MemoryCardService,
@@ -35,6 +41,12 @@ export class MemoryGameService implements Game {
     this.network = false;
   }
 
+  /**
+   * Initializes a local game.
+   * @param cardPairs   - The amount of cards pairs to play.
+   * @param imageSize   - The size of the images for cards.
+   * @param playerNames - The initial player names.
+   */
   public initLocal(cardPairs: number, imageSize: number, playerNames: string[]): void {
     this.cardPairs = cardPairs;
     this.imageSize = imageSize;
@@ -47,8 +59,11 @@ export class MemoryGameService implements Game {
     });
   }
 
+  /**
+   * Starts the socket client to scan the network sessions currently provided by the socket server.
+   * @param socketUrl - The URL of the game socket server.
+   */
   public scanNetwork(socketUrl: string) {
-    // this.networkPlayerId = uuidV4();
     this.socketClient = new PlayerSocketClient(this, {
       playerNetworkId: '-1',
       playerIndex: -1,
@@ -56,6 +71,11 @@ export class MemoryGameService implements Game {
     });
   }
 
+  /**
+   * Joins a given network game session with the passed player name.
+   * @param session    - The network game session to join.
+   * @param playerName - The name of the player who will join.
+   */
   public joinNetwork(session: SessionMessage, playerName: string) {
     this.network = 'join';
     this.networkPlayerId = uuidV4();
@@ -79,7 +99,7 @@ export class MemoryGameService implements Game {
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
-        console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ');
+        // console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ');
         const players: PlayerModel[] = data.map(player => ({
           networkId: player.networkId,
           name: player.name,
@@ -120,6 +140,14 @@ export class MemoryGameService implements Game {
     this.createCards(cards);
   }
 
+  /**
+   * TODO
+   * @param cardPairs          - The amount of cards pairs to play.
+   * @param imageSize          - The size of the images for cards.
+   * @param playerName         - The name of the player who will start the game.
+   * @param networkSessionName - The name of the network session.
+   * @param socketUrl          - The URL of the game socket server.
+   */
   public initNetwork(
     cardPairs: number,
     imageSize: number,
@@ -186,6 +214,11 @@ export class MemoryGameService implements Game {
     this.initCards(this.cardPairs, this.imageSize);
   }
 
+  /**
+   * TODO
+   * @param card  - TODO
+   * @param index - The index of the game card to uncover.
+   */
   public updateGame(card: Card, index: number): void {
     this.toggleIsLockedBoard();
     const amountOfUncoveredCards = this.uncoverCard(index);
@@ -210,29 +243,47 @@ export class MemoryGameService implements Game {
     }
   }
 
+  /**
+   * TODO
+   */
   public isGameOver(): void {
     const cards = this.getCardsSnapshot();
     const isGameOver = cards.filter(card => card.removed).length === cards.length;
     this.gameOverSubject.next(isGameOver ? this.getWinner() : false);
   }
 
+  /**
+   *
+   */
   public getGameOver(): Observable<boolean | Player[]> {
     return this.gameOverSubject;
   }
 
+  /**
+   * TODO
+   */
   public getWinner(): Player[] {
     return this.memoryPlayerService.getWinner();
   }
 
+  /**
+   * Resets the current game to initial state.
+   */
   public reset(): void {
     this.resetScore();
     this.initCards(this.cardPairs, this.imageSize);
   }
 
+  /**
+   * Quits the current game and switches to start view.
+   */
   public quit(): void {
     this.router.navigateByUrl('');
   }
 
+  /**
+   * 
+   */
   public resetPlayers(): void {
     this.memoryPlayerService.resetPlayers();
   }
