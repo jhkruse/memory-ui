@@ -59,6 +59,7 @@ export class MemoryGameService implements Game {
   public joinNetwork(session: SessionMessage, playerName: string) {
     this.network = 'join';
     this.networkPlayerId = uuidV4();
+    this.networkSessionId = session.id;
     this.socketClient.setPlayerIndex(session.players.length);
     this.socketClient.setPlayerNetworkId(this.networkPlayerId);
     console.log(`JOINING PLAYER ${this.socketClient.getPlayerIndex() + 1} on session ${JSON.stringify(session)}`);
@@ -130,7 +131,7 @@ export class MemoryGameService implements Game {
     this.networkPlayerId = uuidV4();
     this.cardPairs = cardPairs;
     this.imageSize = imageSize;
-    this.networkSessionName = sessionName;
+    this.networkSessionName = networkSessionName;
 
     this.resetPlayers();
 
@@ -142,12 +143,13 @@ export class MemoryGameService implements Game {
 
     console.log(`STARTING PLAYER ${this.socketClient.getPlayerIndex() + 1}`);
 
-    this.networkSessionId = this.socketClient.startGame(this.networkSessionName, {
+    const session = this.socketClient.startGame(this.networkSessionName, {
       networkId: this.networkPlayerId,
       name: playerName,
       score: 0,
       active: true
     });
+    this.networkSessionId = session.id;
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
@@ -159,7 +161,7 @@ export class MemoryGameService implements Game {
           active: player.active
         }));
         if (players.length) {
-          this.socketClient.updatePlayers(session.id, this.socketClient.getPlayerIndex(), players);
+          this.socketClient.updatePlayers(this.networkSessionId, this.socketClient.getPlayerIndex(), players);
         }
       },
       err => console.log('ERROR getting players: ', err)
@@ -174,7 +176,7 @@ export class MemoryGameService implements Game {
           removed: card.removed
         }));
         if (cards.length) {
-          this.socketClient.updateCards(session.id, this.socketClient.getPlayerIndex(), cards);
+          this.socketClient.updateCards(this.networkSessionId, this.socketClient.getPlayerIndex(), cards);
         }
       },
       err => console.log('ERROR getting cards: ', err)
