@@ -86,7 +86,7 @@ export class MemoryGameService implements Game {
           score: player.score,
           active: player.active
         }));
-        console.log('YYYYYYYYYYY', this.socketClient.getPlayerIndex(), JSON.stringify(players, null, 2))
+        // console.log('YYYYYYYYYYY', this.socketClient.getPlayerIndex(), JSON.stringify(players, null, 2))
         if (players.length && players[this.socketClient.getPlayerIndex()].active) {
           this.socketClient.updatePlayers(session.id, this.socketClient.getPlayerIndex(), players);
         }

@@ -43,7 +43,7 @@ export class PlayerSocketClient extends AbstractPlayerClient {
   protected onPlayerJoinedGame(session: SessionJoinMessage, connected: boolean): void {
     console.log(`onPlayerJoinedGame for player ${this.playerIndex + 1} (connected: ${connected}) => ${JSON.stringify(session, null, 2)}`)
     if (session.senderPlayerNetworkId !== this.getPlayerNetworkId()) {
-      this.memoryGameService.addPlayer(session.players[session.senderPlayerIndex].name);
+      this.memoryGameService.addPlayer(session.players[session.senderPlayerIndex].name, session.senderPlayerNetworkId);
     }
   }
 
