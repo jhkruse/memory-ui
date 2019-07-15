@@ -32,6 +32,7 @@ export interface Card {
   cover(): void;
   uncover(): void;
   remove(): void;
+  update(uncovered: boolean, removed: boolean): void;
 }
 
 export interface Board {
@@ -62,6 +63,7 @@ export interface Cards {
   isPair(pairId: string): boolean;
   getCards(): Observable<Card[]>;
   getCardsSnapshot(): Card[];
+  updateCards(card: Card[]): void;
 }
 
 export interface Game extends Players, Cards {

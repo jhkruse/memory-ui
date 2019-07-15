@@ -25,4 +25,9 @@ export class MemoryCard implements Card {
     this.removed = true;
     this.uncovered = false;
   }
+
+  public update(uncovered: boolean, removed: boolean): void {
+    this.uncovered = uncovered;
+    this.removed = removed;
+  }
 }

@@ -74,7 +74,7 @@ export class PlayerSocketClient extends AbstractPlayerClient {
         return card;
       });
       // console.log(`CARDS from session: ${JSON.stringify(cards)}`)
-      this.memoryGameService.createCards(cards);
+      this.memoryGameService.updateCards(cards);
     }
   }
 

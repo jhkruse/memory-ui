@@ -92,6 +92,11 @@ export class MemoryCardService implements Cards {
     this.cardsSubject.next(this.cards);
   }
 
+  public updateCards(cards: Card[]): void {
+    this.cards.forEach((card, index) => card.update(cards[index].uncovered, cards[index].removed));
+    this.cardsSubject.next(this.cards);
+  }
+
   public getCards(): Observable<Card[]> {
     return this.cardsSubject;
   }

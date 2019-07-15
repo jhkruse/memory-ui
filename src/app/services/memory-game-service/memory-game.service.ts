@@ -94,20 +94,20 @@ export class MemoryGameService implements Game {
       err => console.log('ERROR getting players: ', err)
     );
 
-    // this.getCards().subscribe(
-    //   (data: Card[]) => {
-    //     const cards: CardModel[] = data.map((card) => ({
-    //       pairId: card.pairId,
-    //       url: card.url,
-    //       uncovered: card.uncovered,
-    //       removed: card.removed,
-    //     }));
-    //     if (cards.length && this.socketClient.getPlayerIndex()) {
-    //       this.socketClient.updateCards(session.id, this.socketClient.getPlayerIndex(), cards);
-    //     }
-    //   },
-    //   err => console.log('ERROR getting cards: ', err)
-    // );
+    this.getCards().subscribe(
+      (data: Card[]) => {
+        const cards: CardModel[] = data.map(card => ({
+          pairId: card.pairId,
+          url: card.url,
+          uncovered: card.uncovered,
+          removed: card.removed
+        }));
+        if (cards.length && players[this.socketClient.getPlayerIndex()].active) {
+          this.socketClient.updateCards(session.id, this.socketClient.getPlayerIndex(), cards);
+        }
+      },
+      err => console.log('ERROR getting cards: ', err)
+    );
 
     const cardsModel: CardModel[] = session.cards.slice();
     const cards: Card[] = cardsModel.map(cardModel => {
@@ -291,6 +291,10 @@ export class MemoryGameService implements Game {
 
   public createCards(cards: Card[]): void {
     this.memoryCardService.createCards(cards);
+  }
+
+  public updateCards(cards: Card[]): void {
+    this.memoryCardService.updateCards(cards);
   }
 
   public createPlayers(players: Player[]): void {
