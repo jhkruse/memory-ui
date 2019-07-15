@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Card, Cards } from '../interfaces';
 import { MemoryCard } from './memory-card';
 import { ImageService } from '../image-service/image.service';
@@ -9,11 +9,11 @@ import { ImageService } from '../image-service/image.service';
 })
 export class MemoryCardService implements Cards {
   private cards: Card[];
-  private cardsSubject: Subject<Card[]>;
+  private cardsSubject: BehaviorSubject<Card[]>;
 
   constructor(private imageService: ImageService) {
     this.cards = [];
-    this.cardsSubject = new Subject<Card[]>();
+    this.cardsSubject = new BehaviorSubject<Card[]>([]);
   }
 
   /**
@@ -46,7 +46,7 @@ export class MemoryCardService implements Cards {
 
   public createCards(cards: Card[]): void {
     console.log(`>>>>> CREATE CARDS: ${JSON.stringify(cards)}`);
-    this.cards = cards;
+    this.cards = cards.map(card => new MemoryCard(card.url));
     this.cardsSubject.next(this.cards);
   }
 
