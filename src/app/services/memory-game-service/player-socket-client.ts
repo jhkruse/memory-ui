@@ -5,6 +5,7 @@ import {
   SessionMessage,
   SessionJoinMessage,
   SessionLeaveMessage,
+  SessionDeleteMessage,
   CardsUpdateMessage,
   PlayersUpdateMessage,
   CardModel,
@@ -38,15 +39,18 @@ export class PlayerSocketClient extends AbstractPlayerClient {
   protected onPlayerStartedGame(session: SessionMessage, connected: boolean): void {
     console.log(`onPlayerStartedGame for player ${this.playerIndex + 1} (connected: ${connected}) => ${JSON.stringify(session, null, 2)}`)
   }
+
   protected onPlayerJoinedGame(session: SessionJoinMessage, connected: boolean): void {
     console.log(`onPlayerJoinedGame for player ${this.playerIndex + 1} (connected: ${connected}) => ${JSON.stringify(session, null, 2)}`)
     if (session.senderPlayerNetworkId !== this.getPlayerNetworkId()) {
       this.memoryGameService.addPlayer(session.players[session.senderPlayerIndex].name);
     }
   }
+
   protected onPlayerLeftGame(session: SessionLeaveMessage, connected: boolean): void {
     console.log(`onPlayerLeftGame for player ${this.playerIndex + 1} (connected: ${connected}) => ${JSON.stringify(session, null, 2)}`)
   }
+
   protected onCardsUpdate(update: CardsUpdateMessage): void {
     console.log(`onCardsUpdate for player ${this.playerIndex + 1} => ${JSON.stringify(update, null, 2)}`)
     if (update.senderPlayerNetworkId !== this.getPlayerNetworkId()) {
@@ -61,12 +65,13 @@ export class PlayerSocketClient extends AbstractPlayerClient {
       this.memoryGameService.createCards(cards);
     }
   }
+
   protected onPlayersUpdate(update: PlayersUpdateMessage): void {
     console.log(`onPlayersUpdate for player ${this.playerIndex + 1} => ${JSON.stringify(update, null, 2)}`)
     if (update.senderPlayerNetworkId !== this.getPlayerNetworkId()) {
       const playersModel: PlayerModel[] = update.players.slice();
       const players: Player[] = playersModel.map((playerModel) => {
-        const player = new MemoryPlayer(playerModel.name, playerModel.active);
+        const player = new MemoryPlayer(playerModel.name, playerModel.active, playerModel.networkId);
         player.score = playerModel.score;
         return player;
       });
@@ -74,6 +79,11 @@ export class PlayerSocketClient extends AbstractPlayerClient {
       this.memoryGameService.createPlayers(players);
     }
   }
+
+  protected onGameSessionDelete(session: SessionDeleteMessage, connected: boolean): void {
+    console.log(`onGameSessionDelete for player ${this.playerIndex + 1} (connected: ${connected}) => ${JSON.stringify(session, null, 2)}`)
+  }
+
   protected onGameSessionsUpdate(sessions: SessionMessage[], connected: boolean): void {
     // console.log(`onGameSessionsUpdate for player ${this.playerIndex + 1} (connected: ${connected}) => ${JSON.stringify(sessions, null, 2)}`)
     this.sessions = sessions;
