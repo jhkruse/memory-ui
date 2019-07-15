@@ -75,17 +75,18 @@ export class MemoryGameService implements Game {
     const players: PlayerModel[] = session.players.slice();
     players.push(newPlayer);
     this.socketClient.joinGame(session.id, this.socketClient.getPlayerIndex(), players);
+    players.forEach(player => this.addPlayer(player.name, player.networkId));
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
         console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ');
         const players: PlayerModel[] = data.map(player => ({
-          networkId: this.networkPlayerId,
+          networkId: player.networkId,
           name: player.name,
           score: player.score,
           active: player.active
         }));
-
+        console.log('YYYYYYYYYYY', this.socketClient.getPlayerIndex(), JSON.stringify(players, null, 2))
         if (players.length && players[this.socketClient.getPlayerIndex()].active) {
           this.socketClient.updatePlayers(session.id, this.socketClient.getPlayerIndex(), players);
         }
@@ -108,8 +109,6 @@ export class MemoryGameService implements Game {
     //   err => console.log('ERROR getting cards: ', err)
     // );
 
-    players.forEach(player => this.addPlayer(player.name, player.networkId));
-
     const cardsModel: CardModel[] = session.cards.slice();
     const cards: Card[] = cardsModel.map(cardModel => {
       const card = new MemoryCard(cardModel.url);
@@ -117,7 +116,7 @@ export class MemoryGameService implements Game {
       card.removed = cardModel.removed;
       return card;
     });
-    // console.log(`CARDS from session: ${JSON.stringify(cards)}`);
+    console.log(`CARDS from session: ${JSON.stringify(cards)}`);
     this.createCards(cards);
   }
 
@@ -154,8 +153,6 @@ export class MemoryGameService implements Game {
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
-        console.log('DATA ' + JSON.stringify(data));
-        console.log('PLAYER ID: ' + this.networkPlayerId);
         console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ', JSON.stringify(data, null, 2));
         const players: PlayerModel[] = data.map(player => ({
           networkId: player.networkId,
