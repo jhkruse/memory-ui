@@ -78,7 +78,7 @@ export class MemoryGameService implements Game {
       (data: Player[]) => {
         console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ')
         const players: PlayerModel[] = data.map((player) => ({
-          networkId: this.networkPlayerId,
+          networkId: player.networkId,
           name: player.name,
           score: player.score,
           active: player.active,
