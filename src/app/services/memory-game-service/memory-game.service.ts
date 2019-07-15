@@ -75,16 +75,18 @@ export class MemoryGameService implements Game {
     const players: PlayerModel[] = session.players.slice();
     players.push(newPlayer);
     this.socketClient.joinGame(session.id, this.socketClient.getPlayerIndex(), players);
+    players.forEach(player => this.addPlayer(player.name, player.networkId));
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
         console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ');
         const players: PlayerModel[] = data.map(player => ({
-          networkId: this.networkPlayerId,
+          networkId: player.networkId,
           name: player.name,
           score: player.score,
           active: player.active
         }));
+        console.log('YYYYYYYYYYY', this.socketClient.getPlayerIndex(), JSON.stringify(players, null, 2))
         if (players.length && players[this.socketClient.getPlayerIndex()].active) {
           this.socketClient.updatePlayers(session.id, this.socketClient.getPlayerIndex(), players);
         }
@@ -106,8 +108,6 @@ export class MemoryGameService implements Game {
     //   },
     //   err => console.log('ERROR getting cards: ', err)
     // );
-
-    players.forEach(player => this.addPlayer(player.name, player.networkId));
 
     const cardsModel: CardModel[] = session.cards.slice();
     const cards: Card[] = cardsModel.map(cardModel => {

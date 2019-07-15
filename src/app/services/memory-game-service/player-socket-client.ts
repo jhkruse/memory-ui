@@ -70,12 +70,15 @@ export class PlayerSocketClient extends AbstractPlayerClient {
     console.log(`onPlayersUpdate for player ${this.playerIndex + 1} => ${JSON.stringify(update, null, 2)}`)
     if (update.senderPlayerNetworkId !== this.getPlayerNetworkId()) {
       const playersModel: PlayerModel[] = update.players.slice();
+
+      console.log(`onPlayersUpdate (PAYERS_MODEL - BEFORE) for player ${this.playerIndex + 1} => ${JSON.stringify(playersModel, null, 2)}`)
       const players: Player[] = playersModel.map((playerModel) => {
         const player = new MemoryPlayer(playerModel.name, playerModel.active, playerModel.networkId);
         player.score = playerModel.score;
         return player;
       });
-      console.log(`PLAYERS from update: ${JSON.stringify(players)}`)
+      console.log(`onPlayersUpdate (PAYERS - AFTER) for player ${this.playerIndex + 1} => ${JSON.stringify(players, null, 2)}`)
+      // console.log(`PLAYERS from update: ${JSON.stringify(players)}`)
       this.memoryGameService.createPlayers(players);
     }
   }
