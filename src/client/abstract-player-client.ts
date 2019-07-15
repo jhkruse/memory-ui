@@ -99,7 +99,7 @@ export abstract class AbstractPlayerClient {
   }
 
   public setPlayerIndex(playerIndex: number) {
-    return (this.playerIndex = playerIndex);
+    this.playerIndex = playerIndex;
   }
 
   public startGame(sessionName: string, player?: PlayerModel, cards: CardModel[] = []): SessionMessage {
@@ -110,8 +110,8 @@ export abstract class AbstractPlayerClient {
       sessionOwnerNetworkId: this.playerNetworkId,
       senderPlayerIndex: 0,
       senderPlayerNetworkId: this.playerNetworkId,
-      players: [],
-      cards
+      players: [player],
+      cards,
     };
     this.socket.emit(PLAYER_START, session);
     return session;

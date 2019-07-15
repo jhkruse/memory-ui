@@ -107,7 +107,7 @@ export class MemoryGameService implements Game {
     //   err => console.log('ERROR getting cards: ', err)
     // );
 
-    players.forEach(player => this.addPlayer(player.name));
+    players.forEach(player => this.addPlayer(player.name, player.networkId));
 
     const cardsModel: CardModel[] = session.cards.slice();
     const cards: Card[] = cardsModel.map(cardModel => {
@@ -153,7 +153,7 @@ export class MemoryGameService implements Game {
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
-        console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ');
+        console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ', JSON.stringify(data, null, 2));
         const players: PlayerModel[] = data.map(player => ({
           networkId: player.networkId,
           name: player.name,
@@ -182,7 +182,7 @@ export class MemoryGameService implements Game {
       err => console.log('ERROR getting cards: ', err)
     );
 
-    this.addPlayer(playerName);
+    this.addPlayer(playerName, this.networkPlayerId);
     this.initCards(this.cardPairs, this.imageSize);
   }
 
@@ -241,8 +241,8 @@ export class MemoryGameService implements Game {
     this.memoryPlayerService.removePlayer(id);
   }
 
-  public addPlayer(name: string): number {
-    return this.memoryPlayerService.addPlayer(name);
+  public addPlayer(name: string, networkId?: string): number {
+    return this.memoryPlayerService.addPlayer(name, networkId);
   }
 
   public nextPlayer(): number {
