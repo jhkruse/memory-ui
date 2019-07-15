@@ -9,7 +9,7 @@ import {
   CardsUpdateMessage,
   SessionDeleteMessage,
   PlayersUpdateMessage,
-  ClientOptions,
+  ClientOptions
 } from './interfaces';
 import {
   PLAYER_START,
@@ -18,7 +18,7 @@ import {
   CARDS_UPDATE,
   PLAYERS_UPDATE,
   GAME_SESSION_DELETE,
-  GAME_SESSIONS_UPDATE,
+  GAME_SESSIONS_UPDATE
 } from './game-events';
 
 export abstract class AbstractPlayerClient {
@@ -90,15 +90,16 @@ export abstract class AbstractPlayerClient {
   }
 
   public setPlayerNetworkId(playerNetworkId: string) {
-    return this.playerNetworkId = playerNetworkId;
+    return (this.playerNetworkId = playerNetworkId);
   }
 
-  public getPlayerIndex() { // TODO could we remove this.playerIndex from this class?
+  public getPlayerIndex() {
+    // TODO could we remove this.playerIndex from this class?
     return this.playerIndex;
   }
 
   public setPlayerIndex(playerIndex: number) {
-    return this.playerIndex = playerIndex;
+    return (this.playerIndex = playerIndex);
   }
 
   public startGame(sessionName: string, player?: PlayerModel, cards: CardModel[] = []): SessionMessage {
@@ -119,7 +120,7 @@ export abstract class AbstractPlayerClient {
   public quitGame(sessionId: string): SessionDeleteMessage {
     const session: SessionDeleteMessage = {
       id: sessionId,
-      senderPlayerNetworkId: this.playerNetworkId,
+      senderPlayerNetworkId: this.playerNetworkId
     };
     this.socket.emit(GAME_SESSION_DELETE, session);
     return session;
@@ -136,7 +137,7 @@ export abstract class AbstractPlayerClient {
       id: sessionId,
       senderPlayerIndex: playerIndex,
       senderPlayerNetworkId: this.playerNetworkId,
-      players,
+      players
     };
     this.socket.emit(PLAYER_JOIN, session);
     this.connectionRequested = true;
@@ -150,22 +151,26 @@ export abstract class AbstractPlayerClient {
    * @param players     - The current players array (unchanged!).
    */
   public leaveGame(sessionId: string, playerIndex: number, players: PlayerModel[]): SessionLeaveMessage {
-    console.log(`CLIENT: execute leaveGame =>  playerIndex: ${playerIndex} and players.length - 1: ${players.length - 1}`)
-    if (playerIndex < players.length - 1 && players[playerIndex].active) { // there is a successor
+    console.log(
+      `CLIENT: execute leaveGame =>  playerIndex: ${playerIndex} and players.length - 1: ${players.length - 1}`
+    );
+    if (playerIndex < players.length - 1 && players[playerIndex].active) {
+      // there is a successor
       players[playerIndex + 1].active = true;
-    } else if (playerIndex > 0 && players[playerIndex].active) { // there is a predecessor
+    } else if (playerIndex > 0 && players[playerIndex].active) {
+      // there is a predecessor
       players[playerIndex - 1].active = true;
     }
 
     const playerLeft: PlayerModel = players.splice(playerIndex, 1)[0];
 
-    console.log(`XXXX ==== CLIENT: execute leaveGame =>  players:\n${JSON.stringify(players, null, 2)}`)
+    console.log(`XXXX ==== CLIENT: execute leaveGame =>  players:\n${JSON.stringify(players, null, 2)}`);
     const session: SessionLeaveMessage = {
       id: sessionId,
       playerLeft,
       senderPlayerIndex: playerIndex,
       senderPlayerNetworkId: this.playerNetworkId,
-      players,
+      players
     };
     this.socket.emit(PLAYER_LEAVE, session);
     return session;
@@ -176,7 +181,7 @@ export abstract class AbstractPlayerClient {
       sessionId,
       senderPlayerIndex: playerIndex,
       senderPlayerNetworkId: this.playerNetworkId,
-      cards,
+      cards
     };
     this.socket.emit(CARDS_UPDATE, update);
     return update;
@@ -187,7 +192,7 @@ export abstract class AbstractPlayerClient {
       sessionId,
       senderPlayerIndex: playerIndex,
       senderPlayerNetworkId: this.playerNetworkId,
-      players,
+      players
     };
     this.socket.emit(PLAYERS_UPDATE, update);
     return update;
