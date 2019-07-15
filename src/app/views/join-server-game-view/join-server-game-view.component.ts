@@ -3,7 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MemoryGameService } from '../../services/memory-game-service/memory-game.service';
-import { SessionModel } from '../../../client/interfaces';
+import { SessionMessage } from '../../../client/interfaces';
 import { Subscription } from 'rxjs';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -23,7 +23,7 @@ export class JoinServerGameViewComponent implements OnInit, OnDestroy {
   playerTwoFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
 
   matcher = new FormErrorStateMatcher();
-  sessions: SessionModel[];
+  sessions: SessionMessage[];
   sessionSubscription: Subscription;
 
   constructor(private router: Router, private memoryGameService: MemoryGameService) {
@@ -33,7 +33,7 @@ export class JoinServerGameViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.memoryGameService.scanNetwork('http://localhost:4444');
     this.sessionSubscription = this.memoryGameService.getNetworkSessions().subscribe(
-      (data: SessionModel[]) => {
+      (data: SessionMessage[]) => {
         this.sessions = data;
       },
       err => console.log('ERROR getting cards: ', err)
@@ -46,8 +46,7 @@ export class JoinServerGameViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit(session: SessionModel) {
-    console.log('SDADASDASDASDASDASDSDAASDASDASD')
+  onSubmit(session: SessionMessage) {
     this.router.navigate(['/board'], {
       state: {
         data: {

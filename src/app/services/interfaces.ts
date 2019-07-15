@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { SessionModel } from '../../client/interfaces';
+import { SessionMessage } from '../../client/interfaces';
 
 /**
  * The Picsum image model.
@@ -14,6 +14,7 @@ export interface PicsumImage {
 }
 
 export interface Player {
+  networkId?: string;
   name: string;
   score: number;
   active: boolean;
@@ -39,6 +40,7 @@ export interface Board {
 }
 
 export interface Players {
+  createPlayers(players: Player[]): void;
   resetPlayers(): void;
   removePlayer(id: number): void;
   addPlayer(name: string): number;
@@ -65,7 +67,7 @@ export interface Cards {
 export interface Game extends Players, Cards {
   initLocal(cardPairs: number, imageSize: number, playerNames: string[]): void;
   initNetwork(cardPairs: number, imageSize: number, playerName: string, sessionName: string, socketUrl: string): void;
-  getNetworkSessions(): Observable<SessionModel[]>;
+  getNetworkSessions(): Observable<SessionMessage[]>;
   updateGame(card: Card, index: number): void;
   isGameOver(): void;
   getGameOver(): Observable<boolean | Player[]>;

@@ -2,13 +2,8 @@
   <mat-card-content>
     <form #form="ngForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="settings-form-field">
-        <input
-          name="playerOne"
-          matInput
-          placeholder="Player 1"
-          [formControl]="playerOneFormControl"
-          [errorStateMatcher]="matcher"
-        />
+        <input name="playerOne" matInput placeholder="Player 1" [formControl]="playerOneFormControl"
+          [errorStateMatcher]="matcher" />
         <mat-hint>Please enter your name!</mat-hint>
         <mat-error *ngIf="playerOneFormControl.hasError('minLength') && !playerOneFormControl.hasError('required')">
           Please enter a player name with min length of 4 characters.
@@ -19,13 +14,8 @@
       </mat-form-field>
 
       <mat-form-field class="settings-form-field">
-        <input
-          name="playerTwo"
-          matInput
-          placeholder="Player 2"
-          [formControl]="playerTwoFormControl"
-          [errorStateMatcher]="matcher"
-        />
+        <input name="playerTwo" matInput placeholder="Player 2" [formControl]="playerTwoFormControl"
+          [errorStateMatcher]="matcher" />
         <mat-hint>Please enter your name!</mat-hint>
         <mat-error *ngIf="playerTwoFormControl.hasError('minLength') && !playerTwoFormControl.hasError('required')">
           Please enter a player name with min length of 4 characters.
@@ -43,7 +33,7 @@
       </mat-form-field>
 
       <button class="settings-form-button" mat-raised-button [disabled]="!form.valid" color="primary">
-        Start Game
+        Start New Local Game
       </button>
     </form>
   </mat-card-content>

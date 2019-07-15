@@ -22,6 +22,12 @@ export class MemoryPlayerService implements Players {
     this.playersSubject.next(this.players);
   }
 
+  public createPlayers(players: Player[]): void {
+    this.players = players;
+    this.currentPlayerId = 0;
+    this.playersSubject.next(this.players);
+  }
+
   public removePlayer(id: number): void {
     this.players.splice(id, 1);
     this.nextPlayer();

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import uuidV4 from 'uuid/V4';
 import { Game, Player, Card } from '../interfaces';
 import { MemoryPlayerService } from '../player-service/memory-player.service';
 import { MemoryCardService } from '../memory-card-service/memory-card.service';
 import { MemoryBoardService } from '../memory-board-service/memory-board.service';
 import { Router } from '@angular/router';
 import { PlayerSocketClient } from './player-socket-client';
-import { PlayerModel, CardModel, SessionModel } from '../../../client/interfaces';
+import { PlayerModel, CardModel, SessionMessage } from '../../../client/interfaces';
 import { MemoryCard } from '../memory-card-service/memory-card';
 
 @Injectable({
@@ -16,7 +17,8 @@ export class MemoryGameService implements Game {
   private gameOverSubject: Subject<boolean | Player[]>;
   private cardPairs: number;
   private imageSize: number;
-  private network: boolean;
+  private network: boolean | string;
+  private networkPlayerId: string;
   private sessionName: string;
   private socketClient: PlayerSocketClient;
 
@@ -45,16 +47,24 @@ export class MemoryGameService implements Game {
   }
 
   public scanNetwork(socketUrl: string) {
+    // this.networkPlayerId = uuidV4();
     this.socketClient = new PlayerSocketClient(this, {
+      playerNetworkId: '-1',
       playerIndex: -1,
       socketUrl,
     });
   }
 
-  public joinNetwork(session: SessionModel, playerName: string) {
-    this.socketClient.setPlayerIndex(session.players.length - 1);
+  public joinNetwork(session: SessionMessage, playerName: string) {
+    this.network = 'join';
+    this.networkPlayerId = uuidV4();
+    this.socketClient.setPlayerIndex(session.players.length);
+    this.socketClient.setPlayerNetworkId(this.networkPlayerId);
+    console.log(`JOINING PLAYER ${this.socketClient.getPlayerIndex() + 1} on session ${JSON.stringify(session)}`)
+    console.log(`PLAYER ${this.socketClient.getPlayerIndex() + 1} network ID: ${this.networkPlayerId}`);
 
     const newPlayer: PlayerModel = {
+      networkId: this.networkPlayerId,
       name: playerName,
       score: 0,
       active: false,
@@ -63,6 +73,37 @@ export class MemoryGameService implements Game {
     const players: PlayerModel[] = session.players.slice();
     players.push(newPlayer);
     this.socketClient.joinGame(session.id, this.socketClient.getPlayerIndex(), players);
+
+    this.getPlayers().subscribe(
+      (data: Player[]) => {
+        console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ')
+        const players: PlayerModel[] = data.map((player) => ({
+          networkId: this.networkPlayerId,
+          name: player.name,
+          score: player.score,
+          active: player.active,
+        }));
+        if (players.length && players[this.socketClient.getPlayerIndex()].active) {
+          this.socketClient.updatePlayers(session.id, this.socketClient.getPlayerIndex(), players);
+        }
+      },
+      err => console.log('ERROR getting players: ', err)
+    );
+
+    // this.getCards().subscribe(
+    //   (data: Card[]) => {
+    //     const cards: CardModel[] = data.map((card) => ({
+    //       pairId: card.pairId,
+    //       url: card.url,
+    //       uncovered: card.uncovered,
+    //       removed: card.removed,
+    //     }));
+    //     if (cards.length && this.socketClient.getPlayerIndex()) {
+    //       this.socketClient.updateCards(session.id, this.socketClient.getPlayerIndex(), cards);
+    //     }
+    //   },
+    //   err => console.log('ERROR getting cards: ', err)
+    // );
 
     players.forEach((player) => this.addPlayer(player.name));
 
@@ -73,11 +114,13 @@ export class MemoryGameService implements Game {
       card.removed = cardModel.removed;
       return card;
     });
+    console.log(`CARDS from session: ${JSON.stringify(cards)}`)
     this.createCards(cards);
   }
 
   public initNetwork(cardPairs: number, imageSize: number, playerName: string, sessionName: string, socketUrl: string): void {
-    this.network = true;
+    this.network = 'create';
+    this.networkPlayerId = uuidV4();
     this.cardPairs = cardPairs;
     this.imageSize = imageSize;
     this.sessionName = sessionName;
@@ -85,11 +128,15 @@ export class MemoryGameService implements Game {
     this.resetPlayers();
 
     this.socketClient = new PlayerSocketClient(this, {
+      playerNetworkId: this.networkPlayerId,
       playerIndex: 0,
       socketUrl,
     });
 
-    const session: SessionModel = this.socketClient.startGame(this.sessionName, {
+    console.log(`STARTING PLAYER ${this.socketClient.getPlayerIndex() + 1}`)
+
+    const session: SessionMessage = this.socketClient.startGame(this.sessionName, {
+      networkId: this.networkPlayerId,
       name: playerName,
       score: 0,
       active: true,
@@ -99,6 +146,7 @@ export class MemoryGameService implements Game {
       (data: Player[]) => {
         console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ')
         const players: PlayerModel[] = data.map((player) => ({
+          networkId: player.networkId,
           name: player.name,
           score: player.score,
           active: player.active,
@@ -236,11 +284,15 @@ export class MemoryGameService implements Game {
     this.memoryCardService.createCards(cards);
   }
 
+  public createPlayers(players: Player[]): void {
+    this.memoryPlayerService.createPlayers(players);
+  }
+
   public getCards(): Observable<Card[]> {
     return this.memoryCardService.getCards();
   }
 
-  public getNetworkSessions(): Observable<SessionModel[]> {
+  public getNetworkSessions(): Observable<SessionMessage[]> {
     return this.socketClient.getSessions();
   }
 
