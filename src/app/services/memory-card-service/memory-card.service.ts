@@ -45,7 +45,7 @@ export class MemoryCardService implements Cards {
   }
 
   public createCards(cards: Card[]): void {
-    console.log(`>>>>> CREATE CARDS: ${JSON.stringify(cards)}`);
+    // console.log(`>>>>> CREATE CARDS: ${JSON.stringify(cards)}`);
     this.cards = cards.map(card => new MemoryCard(card.url));
     this.cardsSubject.next(this.cards);
   }

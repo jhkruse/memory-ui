@@ -85,6 +85,7 @@ export class MemoryGameService implements Game {
           score: player.score,
           active: player.active
         }));
+
         if (players.length && players[this.socketClient.getPlayerIndex()].active) {
           this.socketClient.updatePlayers(session.id, this.socketClient.getPlayerIndex(), players);
         }
@@ -116,7 +117,7 @@ export class MemoryGameService implements Game {
       card.removed = cardModel.removed;
       return card;
     });
-    console.log(`CARDS from session: ${JSON.stringify(cards)}`);
+    // console.log(`CARDS from session: ${JSON.stringify(cards)}`);
     this.createCards(cards);
   }
 
@@ -153,6 +154,8 @@ export class MemoryGameService implements Game {
 
     this.getPlayers().subscribe(
       (data: Player[]) => {
+        console.log('DATA ' + JSON.stringify(data));
+        console.log('PLAYER ID: ' + this.networkPlayerId);
         console.log('PLAYERS SUBSCRIBE TRIGGERED =============== ', JSON.stringify(data, null, 2));
         const players: PlayerModel[] = data.map(player => ({
           networkId: player.networkId,
