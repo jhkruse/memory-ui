@@ -15,3 +15,23 @@ install: ## Installs all modules.
 start: ## Starts the development server.
 	@printf "Starting the development server...\n"
 	yarn start
+
+readme: ## Creates the README.md.
+	@printf "Creating the README.md...\n"
+	yarn readme
+
+lint: ## Starts the linter.
+	@printf "Starting the linter...\n"
+	yarn lint
+
+build: ## Builds the project.
+	@printf "Build the project...\n"
+	yarn lint
+
+test: ## Starts the tests.
+	@printf "Starting the tests...\n"
+	yarn test
+
+e2e: ## Starts the E2E tests.
+	@printf "Starting the E2E tests...\n"
+	yarn e2e

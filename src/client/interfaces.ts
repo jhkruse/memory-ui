@@ -57,22 +57,14 @@ export interface PlayersUpdateMessage {
   players: PlayerModel[];
 }
 
-export interface GameSessionsPersistence {
-  create(session: SessionMessage): string;
-  read(id: string): SessionMessage;
-  readAll(): SessionMessage[];
-  update(id: string, session: SessionMessage): SessionMessage;
-  delete(id: string): SessionMessage;
-}
-
-export interface ServerOptions {
-  port: number;
-  gameSessionsUpdateSendInterval: number;
-  gameSessionsPersistence: GameSessionsPersistence;
-}
-
+/**
+ * The socket client options.
+ */
 export interface ClientOptions {
+  /**  The current index of the player in the player array. */
   playerIndex: number;
+  /** The network ID of the player. */
   playerNetworkId: string;
+  /** The URL of the socket server. */
   socketUrl: string;
 }

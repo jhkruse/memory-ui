@@ -1,0 +1,64 @@
+/* Does not work at the moment!!! */
+{
+  "source": {
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "node_modules"
+    ],
+    "includePattern": ".+\\.ts(doc|x)?$",
+    "excludePattern": ".+\\.(test|spec).ts"
+  },
+  "opts": {
+    "encoding": "utf8",
+    "recurse": true
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/jsdoc-babel"
+  ],
+  "babel": {
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
+    "ignore": [
+      "**/*.(test|spec).ts"
+    ],
+    "babelrc": false,
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ],
+      "@babel/preset-typescript"
+    ],
+    "plugins": [
+      "angular2-annotations",
+      [
+        "transform-decorators-legacy",
+        {
+          "decoratorsBeforeExport": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
+      // ,[
+      //   "@babel/plugin-proposal-decorators",
+      //   {
+      //     "decoratorsBeforeExport": true,
+      //     "legacy": false
+      //   }
+      // ]
+    ]
+  }
+}

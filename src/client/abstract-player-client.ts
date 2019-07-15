@@ -85,10 +85,17 @@ export abstract class AbstractPlayerClient {
   protected abstract onGameSessionDelete(session: SessionDeleteMessage, connected: boolean): void;
   protected abstract onGameSessionsUpdate(sessions: SessionMessage[], connected: boolean): void;
 
+  /**
+   * Get the player's network ID.
+   */
   public getPlayerNetworkId() {
     return this.playerNetworkId;
   }
 
+  /**
+   * Get the player's network ID.
+   * @param playerNetworkId - The new player's network ID.
+   */
   public setPlayerNetworkId(playerNetworkId: string) {
     return (this.playerNetworkId = playerNetworkId);
   }
