@@ -116,7 +116,7 @@ export class MemoryGameService implements Game {
       card.removed = cardModel.removed;
       return card;
     });
-    console.log(`CARDS from session: ${JSON.stringify(cards)}`);
+    // console.log(`CARDS from session: ${JSON.stringify(cards)}`);
     this.createCards(cards);
   }
 
