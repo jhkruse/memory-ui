@@ -13,6 +13,7 @@ import { BoardComponent } from './components/board/board.component';
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { PlayerComponent } from './components/player/player.component';
 import { GameOverDialogComponent } from './dialogs/game-over-dialog/game-over-dialog.component';
+import { WaitingForPlayerDialogComponent } from './dialogs/waiting-for-player-dialog/waiting-for-player-dialog.component';
 import { MaterialModule } from './material-module';
 import { WinnerSvgComponent } from './components/winner-svg/winner-svg.component';
 import { CreateLocalGameViewComponent } from './views/create-local-game-view/create-local-game-view.component';
@@ -30,6 +31,7 @@ import { BoardFooterComponent } from './components/board-footer/board-footer.com
     PlayerListComponent,
     PlayerComponent,
     GameOverDialogComponent,
+    WaitingForPlayerDialogComponent,
     WinnerSvgComponent,
     CreateLocalGameViewComponent,
     CreateServerGameViewComponent,
@@ -45,7 +47,7 @@ import { BoardFooterComponent } from './components/board-footer/board-footer.com
     HttpClientModule,
     MaterialModule
   ],
-  entryComponents: [GameOverDialogComponent],
+  entryComponents: [GameOverDialogComponent, WaitingForPlayerDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

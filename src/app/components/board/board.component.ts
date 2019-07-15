@@ -6,6 +6,7 @@ import { MemoryBoardService } from '../../services/memory-board-service/memory-b
 import { Board } from '../../services/interfaces';
 import { GameOverDialogComponent } from '../../dialogs/game-over-dialog/game-over-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SessionMessage } from '../../../client/interfaces';
 
 @Component({
   selector: 'app-board',
@@ -20,7 +21,7 @@ export class BoardComponent implements OnInit {
     private memoryBoardService: MemoryBoardService,
     private router: Router,
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   openDialog(data: boolean | Player[]): void {
     const dialogRef = this.dialog.open(GameOverDialogComponent, {
@@ -46,13 +47,10 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     if (history.state.data) {
       if (history.state.data.network) {
-        console.log('NETWORK')
+        console.log('NETWORK');
         switch (history.state.data.network) {
           case 'join':
-            this.memoryGameService.joinNetwork(
-              history.state.data.session,
-              history.state.data.playerTwo
-            );
+            this.memoryGameService.joinNetwork(history.state.data.session, history.state.data.playerTwo);
             break;
           case 'create':
             this.memoryGameService.initNetwork(
@@ -62,13 +60,25 @@ export class BoardComponent implements OnInit {
               history.state.data.sessionName,
               'http://localhost:4444'
             );
+
+            this.memoryGameService.getNetworkSessions().subscribe(
+              (data: SessionMessage[]) => {
+                const currentSession = data.filter(sessionMessage => {
+                  return sessionMessage.id === this.memoryGameService.getNetworkSession().id;
+                });
+
+                if (currentSession && currentSession[0].status === 'open') {
+                }
+              },
+              err => console.log('ERROR getting gameOver: ', err)
+            );
             break;
           default:
             console.error(`unknown notwork state '${history.state.data.network}'`);
             break;
         }
       } else {
-        console.log('NO NETWORK')
+        console.log('NO NETWORK');
         this.memoryGameService.initLocal(history.state.data.cardPairs, 200, [
           history.state.data.playerOne,
           history.state.data.playerTwo
